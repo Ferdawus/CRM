@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('Client');
-            $table->integer('ContactNumber');
-            $table->integer('AltnativeContact')->nullable();
+            $table->string('ContactNumber');
+            $table->string('AltnativeContact')->nullable();
             $table->string('Country');
             $table->string('District');
             $table->string('RefrredBy')->nullable();
-            $table->string('Photo')->nullable();
-            $table->string('Address')->nullable();
+            $table->string('Photo',500)->nullable();
+            $table->string('Address',500)->nullable();
+            $table->string('OthersInf',500)->nullable();
             $table->timestamps();
         });
     }

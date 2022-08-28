@@ -2,10 +2,10 @@
     <div class="page-main-header">
         <div class="main-header-right row m-0">
             <div class="main-header-left">
-                <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png"
+                <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('assets')}}/images/logo/logo.png"
                             alt=""></a></div>
                 <div class="dark-logo-wrapper"><a href="index.html"><img class="img-fluid"
-                            src="../assets/images/logo/dark-logo.png" alt=""></a></div>
+                            src="{{asset('assets')}}/images/logo/dark-logo.png" alt=""></a></div>
                 <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
                         id="sidebar-toggle"></i></div>
             </div>
@@ -95,7 +95,7 @@
                         <ul class="chat-dropdown onhover-show-div">
                             <li>
                                 <div class="media"><img class="img-fluid rounded-circle me-3"
-                                        src="../assets/images/user/4.jpg" alt="">
+                                        src="{{asset('assets')}}/images/user/4.jpg" alt="">
                                     <div class="media-body"><span>Ain Chavez</span>
                                         <p class="f-12 light-font">Lorem Ipsum is simply dummy...</p>
                                     </div>
@@ -104,7 +104,7 @@
                             </li>
                             <li>
                                 <div class="media"><img class="img-fluid rounded-circle me-3"
-                                        src="../assets/images/user/1.jpg" alt="">
+                                        src="{{asset('assets')}}/images/user/1.jpg" alt="">
                                     <div class="media-body"><span>Erica Hughes</span>
                                         <p class="f-12 light-font">Lorem Ipsum is simply dummy...</p>
                                     </div>
@@ -113,7 +113,7 @@
                             </li>
                             <li>
                                 <div class="media"><img class="img-fluid rounded-circle me-3"
-                                        src="../assets/images/user/2.jpg" alt="">
+                                        src="{{asset('assets')}}/images/user/2.jpg" alt="">
                                     <div class="media-body"><span>Kori Thomas</span>
                                         <p class="f-12 light-font">Lorem Ipsum is simply dummy...</p>
                                     </div>
@@ -145,7 +145,7 @@
     <header class="main-nav">
         <div class="sidebar-user text-center"><a class="setting-primary" href="javascript:void(0)"><i
                     data-feather="settings"></i></a><img class="img-90 rounded-circle"
-                src="../assets/images/dashboard/1.png" alt="">
+                src="{{asset('assets')}}/images/dashboard/1.png" alt="">
             <div class="badge-bottom"><span class="badge badge-primary">New</span></div><a href="user-profile.html">
                 <h6 class="mt-3 f-14 f-w-600">Emay Walter</h6>
             </a>
@@ -213,7 +213,7 @@
                             </ul>
                         </li>
                         <!-- Users-->
-                        <li class="dropdown">
+                        {{-- <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="users"></i>
                                 <span>Users</span>
@@ -222,7 +222,7 @@
                                 
                                 <li><a href="/user">List</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <!--Settings -->
                         <li class="dropdown">
@@ -231,11 +231,12 @@
                                 <span>Settings</span>
                             </a>
                             <ul class="nav-submenu menu-content">
+                                <li><a href="/user">Users</a></li>
                                 <li><a href="#">Email</a></li>
                                 <li><a href="#">SMS</a></li>
-                                <li><a href="#">Domain</a></li>
-                                <li><a href="#">Hosting</a></li>
-                                <li><a href="#">Serrvices</a></li>
+                                <li><a href="/refer">Referred By</a></li>
+                                {{-- <li><a href="#">Hosting</a></li> --}}
+                                <li><a href="#">Services</a></li>
                             </ul>
                         </li>
 

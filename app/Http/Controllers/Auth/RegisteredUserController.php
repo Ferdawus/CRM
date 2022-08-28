@@ -65,4 +65,15 @@ class RegisteredUserController extends Controller
 
         return redirect()->back();
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $Client = DB::table('users')->where('id',$id)->delete();
+        return redirect()->back();
+    }
 }

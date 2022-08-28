@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReferController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,23 @@ Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth
 | User Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/user/{id}/delete', [RegisteredUserController::class, 'destroy']);
+
 Route::resource('user',RegisteredUserController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Client Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
+Route::get('/client/{id}/delete', [ClientController::class, 'destroy']);
 Route::resource('client',ClientController::class);
+/*
+|--------------------------------------------------------------------------
+| RefrredBy Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('refer',ReferController::class);
 require __DIR__.'/auth.php';

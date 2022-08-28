@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Referred;
+use App\Http\Controllers\DateTime;
+new \DateTime();
+use Devfaysal\BangladeshGeocode\Models\District;
+use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -13,7 +21,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        $Countries = Country::all();
+        $Divisions = Division::all();
+        $Districts = District::all();
+        $Referreds  = Referred::all();
+        $Clients = DB::table('clients')->get();
+        return view('client.index',compact('Clients','Countries','Districts','Divisions','Referreds'))->with('SL',1);
     }
 
     /**
@@ -34,7 +47,23 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Client = array();
+        $Client['Client'] = $request->Client;
+        $Client['ContactNumber'] = $request->ContactNumber;
+        $Client['AltnativeContact'] = $request->AltnativeContact;
+        $Client['Country'] = $request->Country;
+        $Client['Division'] = $request->Division;
+        $Client['District'] = $request->District;
+        $Client['RefrredBy'] = $request->RefrredBy;
+        $Client['Photo'] = $request->Photo;
+        $Client['Address'] = $request->Address;
+        $Client['OthersInf'] = $request->OthersInf;
+        $Client['created_at'] = date('Y-m-d H:i:s');
+        $Client['CreatedBy'] = Auth::id();
+        DB::table('clients')->insert($Client);
+
+        return redirect()->back();
+
     }
 
     /**
@@ -56,7 +85,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('clients')->where('id',$id)->first();
+        return view('client.edit',compact('data'));
+        // echo "heloo";
     }
 
     /**
@@ -79,6 +110,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Client = DB::table('clients')->where('id',$id)->delete();
+        return redirect()->back();
     }
 }
