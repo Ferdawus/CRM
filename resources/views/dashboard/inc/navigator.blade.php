@@ -1,30 +1,29 @@
-
-    <div class="page-main-header">
-        <div class="main-header-right row m-0">
-            <div class="main-header-left">
-                <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('assets')}}/images/logo/logo.png"
-                            alt=""></a></div>
-                <div class="dark-logo-wrapper"><a href="index.html"><img class="img-fluid"
-                            src="{{asset('assets')}}/images/logo/dark-logo.png" alt=""></a></div>
-                <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
-                        id="sidebar-toggle"></i></div>
-            </div>
-            <div class="left-menu-header col">
-                <ul>
-                    <li>
-                        <form class="form-inline search-form">
-                            <div class="search-bg"><i class="fa fa-search"></i>
-                                <input class="form-control-plaintext" placeholder="Search here.....">
-                            </div>
-                        </form><span class="d-sm-none mobile-search search-bg"><i class="fa fa-search"></i></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="nav-right col pull-right right-menu p-0">
-                <ul class="nav-menus">
-                    <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
-                                data-feather="maximize"></i></a></li>
-                    {{-- <li class="onhover-dropdown">
+<div class="page-main-header">
+    <div class="main-header-right row m-0">
+        <div class="main-header-left">
+            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid"
+                        src="{{ asset('assets') }}/images/logo/logo.png" alt=""></a></div>
+            <div class="dark-logo-wrapper"><a href="index.html"><img class="img-fluid"
+                        src="{{ asset('assets') }}/images/logo/dark-logo.png" alt=""></a></div>
+            <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
+                    id="sidebar-toggle"></i></div>
+        </div>
+        <div class="left-menu-header col">
+            <ul>
+                <li>
+                    <form class="form-inline search-form">
+                        <div class="search-bg"><i class="fa fa-search"></i>
+                            <input class="form-control-plaintext" placeholder="Search here.....">
+                        </div>
+                    </form><span class="d-sm-none mobile-search search-bg"><i class="fa fa-search"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-right col pull-right right-menu p-0">
+            <ul class="nav-menus">
+                <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
+                            data-feather="maximize"></i></a></li>
+                {{-- <li class="onhover-dropdown">
                         <div class="bookmark-box"><i data-feather="star"></i></div>
                         <div class="bookmark-dropdown onhover-show-div">
                             <div class="form-group mb-0">
@@ -47,7 +46,7 @@
                             </ul>
                         </div>
                     </li> --}}
-                    {{-- <li class="onhover-dropdown">
+                {{-- <li class="onhover-dropdown">
                         <div class="notification-box"><i data-feather="bell"></i><span class="dot-animated"></span></div>
                         <ul class="notification-dropdown onhover-show-div">
                             <li>
@@ -88,10 +87,10 @@
                             </li>
                         </ul>
                     </li> --}}
-                    <li>
-                        <div class="mode"><i class="fa fa-moon-o"></i></div>
-                    </li>
-                    {{-- <li class="onhover-dropdown"><i data-feather="message-square"></i>
+                <li>
+                    <div class="mode"><i class="fa fa-moon-o"></i></div>
+                </li>
+                {{-- <li class="onhover-dropdown"><i data-feather="message-square"></i>
                         <ul class="chat-dropdown onhover-show-div">
                             <li>
                                 <div class="media"><img class="img-fluid rounded-circle me-3"
@@ -123,29 +122,29 @@
                             <li class="text-center"> <a class="f-w-700" href="javascript:void(0)">See All </a></li>
                         </ul>
                     </li> --}}
-                    <li class="onhover-dropdown p-0">
-                        {!! Form::open(['url' => '/logout']) !!}
-                        <button class="btn btn-primary-light" type="submit">
-                            <i data-feather="log-out"></i>
-                                Log out
-                            
-                        </button>
-                        {!! Form::close() !!}
-                    </li>
-                </ul>
-            </div>
-            <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
+                <li class="onhover-dropdown p-0">
+                    {!! Form::open(['url' => '/logout']) !!}
+                    <button class="btn btn-primary-light" type="submit">
+                        <i data-feather="log-out"></i>
+                        Log out
+
+                    </button>
+                    {!! Form::close() !!}
+                </li>
+            </ul>
         </div>
+        <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
     </div>
-    
-    <!-- Page Header Ends-->
-    <!-- Page Body Start-->
-    <div class="page-body-wrapper sidebar-icon">
+</div>
+
+<!-- Page Header Ends-->
+<!-- Page Body Start-->
+<div class="page-body-wrapper sidebar-icon">
     <!-- Page Sidebar Start-->
     <header class="main-nav">
         <div class="sidebar-user text-center"><a class="setting-primary" href="javascript:void(0)"><i
                     data-feather="settings"></i></a><img class="img-90 rounded-circle"
-                src="{{asset('assets')}}/images/dashboard/1.png" alt="">
+                src="{{ asset('assets') }}/images/dashboard/1.png" alt="">
             <div class="badge-bottom"><span class="badge badge-primary">New</span></div><a href="user-profile.html">
                 <h6 class="mt-3 f-14 f-w-600">Emay Walter</h6>
             </a>
@@ -171,7 +170,7 @@
                             <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2"
                                     aria-hidden="true"></i></div>
                         </li>
-                        
+
                         <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
                                     data-feather="home"></i><span>Dashboard</span></a>
                             <ul class="nav-submenu menu-content">
@@ -179,7 +178,7 @@
                                 <li><a href="dashboard-02.html">Ecommerce</a></li>
                             </ul>
                         </li>
-                         <!-- Clients-->
+                        <!-- Clients-->
                         <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="user-check"></i>
@@ -190,7 +189,7 @@
                                 <li><a href="/client">List</a></li>
                             </ul>
                         </li>
-                         <!-- Invoice-->
+                        <!-- Invoice-->
                         <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="file-minus"></i>
@@ -202,7 +201,7 @@
                             </ul>
                         </li>
                         <!-- Report-->
-                         <li class="dropdown">
+                        <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="file-text"></i>
                                 <span>Report</span>

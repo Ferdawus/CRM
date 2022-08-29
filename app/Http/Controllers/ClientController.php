@@ -63,8 +63,9 @@ class ClientController extends Controller
         $Client['created_at'] = date('Y-m-d H:i:s');
         $Client['CreatedBy'] = Auth::id();
         DB::table('clients')->insert($Client);
+        
 
-        return redirect()->back();
+        return redirect()->back()->with('message','Data added Successfully');
 
     }
 
