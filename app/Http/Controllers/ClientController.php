@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\Referred;
 use App\Http\Controllers\DateTime;
+use App\Models\ClientModel;
+
 new \DateTime();
 use Devfaysal\BangladeshGeocode\Models\District;
 use Devfaysal\BangladeshGeocode\Models\Division;
@@ -86,7 +88,8 @@ class ClientController extends Controller
     public function edit($id)
     {
         $data = DB::table('clients')->where('id',$id)->first();
-        return view('client.edit',compact('data'));
+        return json_encode($data);
+        // return view('client.edit',compact('data'));
         // echo "heloo";
     }
 
@@ -97,9 +100,23 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $Client = array();
+        $Client['Client']           = $request->Client;
+        $Client['ContactNumber']    = $request->ContactNumber;
+        $Client['AltnativeContact'] = $request->AltnativeContact;
+        $Client['Country']          = $request->Country;
+        $Client['Division']         = $request->Division;
+        $Client['District']         = $request->District;
+        $Client['RefrredBy']        = $request->RefrredBy;
+        $Client['Photo']            = $request->Photo;
+        $Client['Address']          = $request->Address;
+        $Client['OthersInf']        = $request->OthersInf;
+        $Client['created_at']       = date('Y-m-d H:i:s');
+        $Client['UpdatedBy']        = Auth::id();
+        DB::table('clients')->where('id',$request->id)->update($Client);
+        return redirect()->back();
     }
 
     /**
@@ -112,5 +129,11 @@ class ClientController extends Controller
     {
         $Client = DB::table('clients')->where('id',$id)->delete();
         return redirect()->back();
+    }
+    public function ClientDetail($id)
+    {
+        $ClientDetails = DB::table('clients')->where('id',$id)->first();
+        // return $ClientDetails;
+        return view('client.client-detail',compact('ClientDetails'));
     }
 }

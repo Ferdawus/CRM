@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->string('OthersInf')->nullable();
+            $table->bigInteger('CreatedBy')->nullable();
+            $table->bigInteger('UpdatedBy')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('OthersInf')->nullable();
+            $table->dropColumn('CreatedBy')->nullable();
+            $table->dropColumn('UpdatedBy')->nullable();
         });
     }
 };

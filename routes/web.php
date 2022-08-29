@@ -42,9 +42,12 @@ Route::resource('user',RegisteredUserController::class);
 | Client Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/client/detail/{id}',[ClientController::class,'ClientDetail']);
 Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
+Route::post('/client/update',[ClientController::class,'update']);
 Route::get('/client/{id}/delete', [ClientController::class, 'destroy']);
 Route::resource('client',ClientController::class);
+
 /*
 |--------------------------------------------------------------------------
 | RefrredBy Routes
