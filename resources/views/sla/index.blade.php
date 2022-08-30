@@ -9,11 +9,11 @@
         <div class="card">
           <div class="card-header" id="success-color">
             <h5 id="title">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"> 
+                <button type="button" data-bs-toggle="modal" data-bs-target="#sla-insert" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"> 
                     <i class="fa-solid fa-circle-plus mr-2"></i>
                     Add
                 </button> 
-                  Referred List
+                  SLA List
             </h5>
           </div>
           <div class="table-responsive">
@@ -21,7 +21,7 @@
               <thead>
                 <tr>
                   <th scope="col">SL</th>
-                  <th scope="col">Name</th>
+                  <th scope="col">SLA Type</th>
                   <th scope="col">Description</th>
                   <th scope="col">Action</th>
                  
@@ -29,15 +29,15 @@
               </thead>
               <tbody>
         
-                @foreach ($Referes as $Refer)
+                @foreach ($Services as $Service)
                   <tr>
                     <td>{{$SL++}}</td>
-                    <td>{{$Refer->Name}}</td>
-                    <td>{{$Refer->Description}}</td>
+                    <td>{{$Service->Type}}</td>
+                    <td>{{$Service->Description}}</td>
                     <td class="d-flex">
                       <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
                       <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a>
-                      <a href="/refer/{{$Refer->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
+                      <a href="/sla/service/{{$Service->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -47,19 +47,20 @@
           </div>
 
           {{-- insert modal --}}
-          <div class="modal fade" id="exampleModalfat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="sla-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel2">Add New Refer</h5>
+                  <h5 class="modal-title" id="exampleModalLabel2">Add New SLA </h5>
                   <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  {{ Form::open(['url' => '/refer','method'=>'POST','class'=>'theme-form','files'=> true]) }}
+                  {{ Form::open(['url' => '/sla/service','method'=>'POST','class'=>'theme-form','files'=> true]) }}
                       <div class="mb-3">
-                        <label class="col-form-label" for="Name">Name:</label>
-                        <input class="form-control" type="text" name="Name"  required>
+                        <label class="col-form-label" for="Type">SLA Type:</label>
+                        <input class="form-control" type="text" name="Type"  required>
                       </div>
+                   
                       <div class="mb-3">
                         <label class="col-form-label" for="Description">Description:</label>
                         <textarea name="Description" class="form-control" id="" cols="10" rows="5"></textarea>
@@ -68,16 +69,13 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="submit">Add New Refered By</button>
+                    <button class="btn btn-primary" type="submit">Add New Product </button>
                 </div>
             
                 {{ Form::close() }}
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
   </div>
@@ -103,3 +101,13 @@
 @section('footer')
 
 @endsection
+
+
+
+
+
+
+
+
+
+

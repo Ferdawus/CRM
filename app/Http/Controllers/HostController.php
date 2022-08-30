@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class ReferController extends Controller
+class HostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ReferController extends Controller
      */
     public function index()
     {
-        $Referes =DB::table('referreds')->get();
-        return view('refer.index',compact('Referes'))->with('SL',1);
+        $Hosts = DB::table('hosts')->get();
+        return view('hostby.index',compact('Hosts'))->with('SL',1);
     }
 
     /**
@@ -38,14 +37,15 @@ class ReferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Name' => ['required','max:25'],
-            'Description' => ['max:1000'],
+            'HostedBy' => ['max:255'],
+            'Description' => ['max:500']
         ]);
 
-        $Refer = array();
-        $Refer['Name']        = $request->Name;
-        $Refer['Description'] = $request->Description;
-        DB::table('referreds')->insert($Refer);
+        $Host = array();
+        
+        $Host['HostedBy'] = $request->HostedBy;
+        $Host['Description'] = $request->Description;
+        DB::table('hosts')->insert($Host);
         return redirect()->back()->with('message','Data added Successfully');
     }
 
@@ -91,7 +91,7 @@ class ReferController extends Controller
      */
     public function destroy($id)
     {
-        $Refers = DB::table('referreds')->where('id',$id)->delete();
-        return redirect()->back()->with('message','Data Deleted Succesfully');
+        $Host = DB::table('hosts')->where('id',$id)->delete();
+        return redirect()->back()->with('message','Deleted Successfully');
     }
 }

@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->bigInteger('CreatedBy')->nullable();
-            $table->bigInteger('UpdatedBy')->nullable();
+        Schema::create('servicelevels', function (Blueprint $table) {
+            $table->id();
+            $table->string('Type');
+            $table->string('Description',500)->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('CreatedBy')->nullable();
-            $table->dropColumn('UpdatedBy')->nullable();
-        });
+        Schema::dropIfExists('servicelevels');
     }
 };

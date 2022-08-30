@@ -233,7 +233,12 @@
                                 <li><a href="/user">Users</a></li>
                                 <li><a href="#">Email</a></li>
                                 <li><a href="#">SMS</a></li>
+                                <li><a href="/domain">Domain</a></li>
+                                <li><a href="/product/type">Product</a></li>
+                                <li><a href="/sla/service">SLA</a></li>
                                 <li><a href="/refer">Referred By</a></li>
+                                <li><a href="/host">Hosted By</a></li>
+
                                 {{-- <li><a href="#">Hosting</a></li> --}}
                                 <li><a href="#">Services</a></li>
                             </ul>

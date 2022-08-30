@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_infomations', function (Blueprint $table) {
+        Schema::create('hosts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ClientID');
-            $table->string('InstallationSerge');
-            $table->string('SLA-Type');
-            $table->integer('SLA-Amount');
-            $table->dateTime('SLA-ByingDate');
+            $table->string('HostedBy');
+            $table->string('Description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_infomations');
+        Schema::dropIfExists('hosts');
     }
 };

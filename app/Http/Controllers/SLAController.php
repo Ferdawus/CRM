@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class ReferController extends Controller
+class SLAController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ReferController extends Controller
      */
     public function index()
     {
-        $Referes =DB::table('referreds')->get();
-        return view('refer.index',compact('Referes'))->with('SL',1);
+        $Services = DB::table('servicelevels')->get();
+        return view('sla.index',compact('Services'))->with('SL',1);
     }
 
     /**
@@ -37,15 +36,15 @@ class ReferController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'Name' => ['required','max:25'],
-            'Description' => ['max:1000'],
-        ]);
+        // $request->validate([
+        //     'Type'        => ['max:255'],
+        //     'Description' => ['Description'],
+        // ]);
 
-        $Refer = array();
-        $Refer['Name']        = $request->Name;
-        $Refer['Description'] = $request->Description;
-        DB::table('referreds')->insert($Refer);
+        $SLA = array();
+        $SLA['Type'] = $request->Type;
+        $SLA['Description'] = $request->Description;
+        DB::table('servicelevels')->insert($SLA);
         return redirect()->back()->with('message','Data added Successfully');
     }
 
@@ -91,7 +90,8 @@ class ReferController extends Controller
      */
     public function destroy($id)
     {
-        $Refers = DB::table('referreds')->where('id',$id)->delete();
-        return redirect()->back()->with('message','Data Deleted Succesfully');
+        $SLA = DB::table('servicelevels')->where('id',$id)->delete();
+        return redirect()->back()->with('message','Deleted Successfully');
+
     }
 }

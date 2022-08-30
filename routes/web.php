@@ -3,8 +3,13 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\HostController;
+use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ReferController;
+use App\Http\Controllers\SLAController;
 use App\Http\Controllers\UserController;
+use App\Models\Domain;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +58,37 @@ Route::resource('client',ClientController::class);
 | RefrredBy Routes
 |--------------------------------------------------------------------------
 */
-
+Route::get('/refer/{id}/delete', [ReferController::class, 'destroy']);
 Route::resource('refer',ReferController::class);
+/*
+|--------------------------------------------------------------------------
+| Product Type Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/product/type/{id}/delete', [ProductTypeController::class, 'destroy']);
+Route::resource('/product/type',ProductTypeController::class);
+/*
+|--------------------------------------------------------------------------
+|Domain Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/domain/{id}/delete', [DomainController::class, 'destroy']);
+Route::resource('/domain',DomainController::class);
+/*
+|--------------------------------------------------------------------------
+|SLA Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/sla/service/{id}/delete', [SLAController::class, 'destroy']);
+Route::resource('/sla/service',SLAController::class);
+/*
+|--------------------------------------------------------------------------
+|HostedBy Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/host/{id}/delete', [HostController::class, 'destroy']);
+Route::resource('/host',HostController::class);
+
+
+
 require __DIR__.'/auth.php';

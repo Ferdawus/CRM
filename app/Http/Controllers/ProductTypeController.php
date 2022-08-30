@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class ReferController extends Controller
+class ProductTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ReferController extends Controller
      */
     public function index()
     {
-        $Referes =DB::table('referreds')->get();
-        return view('refer.index',compact('Referes'))->with('SL',1);
+        $ProductTypes = DB::table('products')->get();
+        return view('product-type.index',compact('ProductTypes'))->with('SL',1);
     }
 
     /**
@@ -38,14 +38,14 @@ class ReferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Name' => ['required','max:25'],
-            'Description' => ['max:1000'],
+            'ProductType' => ['required','max:255'],
+            'Description' => ['max:500'],
         ]);
 
-        $Refer = array();
-        $Refer['Name']        = $request->Name;
-        $Refer['Description'] = $request->Description;
-        DB::table('referreds')->insert($Refer);
+        $ProductType = array();
+        $ProductType['ProductType'] = $request->ProductType;
+        $ProductType['Description'] = $request->Description;
+        DB::table('products')->insert($ProductType);
         return redirect()->back()->with('message','Data added Successfully');
     }
 
@@ -91,7 +91,7 @@ class ReferController extends Controller
      */
     public function destroy($id)
     {
-        $Refers = DB::table('referreds')->where('id',$id)->delete();
-        return redirect()->back()->with('message','Data Deleted Succesfully');
+        $ProductType = DB::table('products')->where('id',$id)->delete();
+        return redirect()->back()->with('message','Data Deleted Successfully');
     }
 }

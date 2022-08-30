@@ -86,7 +86,7 @@
         }
         toastr.info("{{ session('info') }}");
     @endif
-
+   
     @if (Session::has('warning'))
         toastr.options = {
             "closeButton": true,

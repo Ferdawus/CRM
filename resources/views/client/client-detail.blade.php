@@ -31,10 +31,89 @@
                             <li><i class="icofont icofont-social-google-plus"></i></li>
                         </ul>
                         <div class="buttons">
-                            <button class="btn btn-outline-primary px-4">Add Service</button>
+                            <button class="btn btn-outline-primary px-4" data-bs-toggle="modal" data-bs-target="#client_details_modal">Add Service</button>
                             <button class="btn btn-primary px-4 ms-3">Contact</button>
                         </div>
+
+                        
+                        <div class="modal fade" id="client_details_modal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    {{ Form::open(['url'=>'','method'=>'POST','files'=>true])}}
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add New Service</h5>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                          
+                                            <fieldset>
+                                                <legend> Bussiness-Information</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client"  required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend> Payment-Information</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client"  required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <legend> Product-Information</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client"  required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="Client">Client Name:</label>
+                                                            <input class="form-control" type="text" name="Client" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            
+                                              
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" type="submit">Add New Service</button>
+                                        </div>
+                                    {{ Form::close() }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    
                 </div>
                 
             </div>
@@ -127,8 +206,35 @@
             border:1px solid #308b7a !important;
             background-color:#308b7a;
             color:#fff;
-                height:40px;
+            height:40px;
         }
+        fieldset {
+            border: 2px solid green;
+            /* margin: 10px;
+            padding: 20px; */
+            width: auto;
+            padding: 0px 20px;
+            /* font-family: courier; */
+        }
+        legend {
+        float: inherit;
+        width: inherit;
+        padding: 0;
+        margin-bottom: 0.5rem;
+        font-size: calc(1.275rem + 0.3vw);
+        line-height: inherit;
+        margin: 0 -200px;
+        }   
+        legend {
+            position: inherit;
+        }
+        .form-control, .form-select {
+            background-color: #fff;
+            font-size: 14px;
+            border-color: #b2b4b4 !important;
+            color: #a1a0a0;
+        }
+        
     </style>
          
 @endsection

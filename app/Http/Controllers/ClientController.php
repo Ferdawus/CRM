@@ -23,9 +23,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $Countries = Country::all();
-        $Divisions = Division::all();
-        $Districts = District::all();
+        $Countries  = Country::all();
+        $Divisions  = Division::all();
+        $Districts  = District::all();
         $Referreds  = Referred::all();
         $Clients = DB::table('clients')->get();
         return view('client.index',compact('Clients','Countries','Districts','Divisions','Referreds'))->with('SL',1);
@@ -63,8 +63,6 @@ class ClientController extends Controller
         $Client['created_at'] = date('Y-m-d H:i:s');
         $Client['CreatedBy'] = Auth::id();
         DB::table('clients')->insert($Client);
-        
-
         return redirect()->back()->with('message','Data added Successfully');
 
     }
@@ -117,7 +115,7 @@ class ClientController extends Controller
         $Client['created_at']       = date('Y-m-d H:i:s');
         $Client['UpdatedBy']        = Auth::id();
         DB::table('clients')->where('id',$request->id)->update($Client);
-        return redirect()->back();
+        return redirect()->back()->with('message','Data Update Succesfully');
     }
 
     /**
@@ -129,7 +127,7 @@ class ClientController extends Controller
     public function destroy($id)
     {
         $Client = DB::table('clients')->where('id',$id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message','Data Deleted Succesfully');
     }
     public function ClientDetail($id)
     {
