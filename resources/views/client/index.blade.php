@@ -51,18 +51,24 @@
 
                                     {{-- <td>{{ $Client->OthersInf}}</td> --}}
                                     <td class="d-flex">
-                                        <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
+                                        <button style="border:0px; background:none" id="ShowBtn" data-bs-toggle="modal"
+                                            data-bs-target="#client_show_modal" data-whatever="@mdo" class="ShowBtn"
+                                            data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Client Show Page" data-id="{{ $Client->id }}">
+                                            <i class="icofont icofont-eye fs-5 me-2"></i>
+                                        </button>
 
 
-                                        <button id="EditBtn" data-bs-toggle="modal" data-bs-target="#client_edit_modal"
-                                            data-whatever="@mdo" class="EditBtn" data-bs-original-title=""
-                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"
-                                            data-id="{{ $Client->id }}">
+                                        <button style="border:0px; background:none"id="EditBtn" data-bs-toggle="modal"
+                                            data-bs-target="#client_edit_modal" data-whatever="@mdo" class="EditBtn"
+                                            data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Create User" data-id="{{ $Client->id }}">
                                             <i class="icofont icofont-edit fs-5 text-secondary"></i>
                                         </button>
 
-                                        <a href="/client/{{ $Client->id }}/delete" class=""><i
-                                                class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
+                                        <a href="/client/{{ $Client->id }}/delete" class="">
+                                            <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
+                                        </a>
 
                                     </td>
 
@@ -186,8 +192,6 @@
                     </div>
                 </div>
             </div>
-
-
             {{-- update modal --}}
             <div class="modal fade" id="client_edit_modal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,7 +234,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label" for="Division">Division:</label>
@@ -254,9 +257,7 @@
 
                                     </select>
                                 </div>
-
                             </div>
-
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="col-form-label" for="RefrredBy">Referred By:</label>
@@ -266,7 +267,6 @@
                                         @foreach ($Referreds as $Referred)
                                             <option value="{{ $Referred->Name }}"> {{ $Referred->Name }} </option>
                                         @endforeach
-
                                     </select>
                                 </div>
 
@@ -288,10 +288,7 @@
 
                                 </div>
                             </div>
-
-
                         </div>
-
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                             <button class="btn btn-primary" type="submit">Update Client</button>
@@ -301,9 +298,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
     </div>
     </div>
@@ -320,6 +314,7 @@
 
         }
     </style>
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -334,8 +329,8 @@
 
                     success: function(data) {
                         const myData = JSON.parse(data);
-                        console.log(myData);
-                        console.log(myData.id)
+                        {{-- console.log(myData);
+                        console.log(myData.id) --}}
                         $('#clientId').attr('value', myData.id);
                         $('#EditClient').val(myData.Client);
                         $('#EditContactNum').val(myData.ContactNumber);
@@ -356,6 +351,15 @@
                 });
 
             });
+
+            $('.ShowBtn').on('click', function(e) {
+                e.preventDefault();
+                var ID = $(this).attr('data-id');
+                console.log(ID);
+
+            });
+
+
 
         });
     </script>

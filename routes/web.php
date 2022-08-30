@@ -48,6 +48,8 @@ Route::resource('user',RegisteredUserController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/client/detail/{id}',[ClientController::class,'ClientDetail']);
+
+Route::get('/client/show/{id}', [ClientController::class, 'show']);
 Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client/update',[ClientController::class,'update']);
 Route::get('/client/{id}/delete', [ClientController::class, 'destroy']);
