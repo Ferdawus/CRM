@@ -31,9 +31,9 @@
         
                 @foreach ($Hosts as $Host)
                   <tr>
-                    <td>{{$SL++}}</td>
-                    <td>{{$Host->HostedBy}}</td>
-                    <td>{{$Host->Description}}</td>
+                    <td>{{ $SL++ }}</td>
+                    <td>{{ $Host->HostedBy }}</td>
+                    <td>{{ $Host->Description }}</td>
                     <td class="d-flex">
                       <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
                       <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a>

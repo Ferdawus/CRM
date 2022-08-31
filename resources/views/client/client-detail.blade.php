@@ -5,7 +5,7 @@
 @section('content')
   <div class="page-body">
     <div class="container mt-5">
-        <div class="row d-flex ">
+        <div class="row">
             <div class="col-md-5 box-shadow">
                 <div class="card p-3 py-4">
                     <div class="text-center">
@@ -35,12 +35,12 @@
                             <button class="btn btn-primary px-4 ms-3">Contact</button>
                         </div>
 
-                        
+                        {{-- Service add --}}
                         <div class="modal fade" id="client_details_modal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
-                                    {{ Form::open(['url'=>'','method'=>'POST','files'=>true])}}
+                                    {{ Form::open(['url'=>'/service/insert/'.$ClientDetails->id,'method'=>'POST','files'=>true])}}
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLongTitle">Add New Service</h5>
                                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -53,14 +53,21 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client"  required>
+                                                            <label class="col-form-label text-left" for="BussinessName">Bussiness Name:</label>
+                                                            <input class="form-control" type="text" name="BussinessName"  required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client" required>
+                                                            <label class="col-form-label" for="BussinessAddess">Bussiness Address:</label>
+                                                            <input class="form-control" type="text" name="BussinessAddess" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="OtherBussinessAddess">Others Bussiness Address</label>
+                                                            <textarea name="OtherBussinessAddess" type="text" class="form-control" id="" cols="70" rows="4"></textarea>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -70,14 +77,60 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client"  required>
+                                                            <label class="col-form-label text-left" for="SoftwarePrice">Software Price :</label>
+                                                            <input class="form-control" type="number" name="SoftwarePrice"  required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client" required>
+                                                            <label class="col-form-label" for="InstallationSerge">Installation Serge:</label>
+                                                            <input class="form-control" type="number" name="InstallationSerge" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="SLAType">SLA Type:</label>
+                                                            <select name="SLAType" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($SLAs as $SLA)
+                                                                    <option value="{{ $SLA->id }}">
+                                                                        {{ $SLA->Type }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                            {{-- <input class="form-control" type="text" name="SLAType" required> --}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="SLAAmount">SLA Amount:</label>
+                                                            <input class="form-control" type="number" name="SLAAmount" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="BillingType"> Domain&Hosting Billing Type:</label>
+                                                            {{-- <input class="form-control" type="text" name="BillingType" required> --}}
+                                                            <select name="BillingType" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($SLAs as $SLA)
+                                                                    <option value="{{ $SLA->id }}">
+                                                                        {{ $SLA->Type }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="BillingAmount"> Domain&Hosting Billing Amount:</label>
+                                                            <input class="form-control" type="number" name="BillingAmount" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="BillingDate"> Domain&Hosting Billing Start Date:</label>
+                                                            <input class="form-control" type="date" name="BillingDate" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,16 +140,112 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label text-left" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client"  required>
+                                                            <label class="col-form-label text-left" for="ProductType">Product Type :</label>
+                                                            {{-- <input class="form-control" type="text" name="ProductType"  required> --}}
+                                                            <select name="ProductType" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($Products as $Product)
+                                                                    <option value="{{ $Product->id }}">
+                                                                        {{ $Product->ProductType }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label class="col-form-label" for="Client">Client Name:</label>
-                                                            <input class="form-control" type="text" name="Client" required>
+                                                            <label class="col-form-label" for="ProductInstallId">Product Install Id:</label>
+                                                            <input class="form-control" type="number" name="ProductInstallId" required>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductUrl">Product Url:</label>
+                                                            <input class="form-control" type="text" name="ProductUrl" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductUserName">Product UserName:</label>
+                                                            <input class="form-control" type="text" name="ProductUserName" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductPassword">Product Password:</label>
+                                                            <input class="form-control" type="text" name="ProductPassword" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductInstallDate">Product Install Date:</label>
+                                                            <input class="form-control" type="date" name="ProductInstallDate" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductRenewDate"> Product Renew Date:</label>
+                                                            <input class="form-control" type="date" name="ProductRenewDate" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="RefrredBy">Refrred By:</label>
+                                                            {{-- <input class="form-control" type="text" name="RefrredBy" required> --}}
+                                                            <select name="RefrredBy" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($Refers as $Refer)
+                                                                    <option value="{{ $Refer->id }}">
+                                                                        {{ $Refer->Name }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="HostedBy">Hosted By:</label>
+                                                            {{-- <input class="form-control" type="text" name="HostedBy" required> --}}
+                                                            <select name="HostedBy" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($Hosts as $Host)
+                                                                    <option value="{{ $Host->id }}">
+                                                                        {{ $Host->HostedBy }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="DomainType">Domain Type:</label>
+                                                            {{-- <input class="form-control" type="text" name="DomainType" required> --}}
+                                                            <select name="DomainType" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($Domains as $Domain)
+                                                                    <option value="{{ $Domain->id }}">
+                                                                        {{ $Domain->Type }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="DomainProvide">Domain Provide:</label>
+                                                            {{-- <input class="form-control" type="text" name="DomainProvide" required> --}}
+                                                            <select name="DomainProvide" class="form-select" id="">
+                                                                <option value="" selected>Choose type....</option>
+                                                                @foreach ($Domains as $Domain)
+                                                                    <option value="{{ $Domain->id }}">
+                                                                        {{ $Domain->Provide }}</option>
+                                                                @endforeach
+                        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                   
                                                 </div>
                                             </fieldset>
                                             
@@ -111,13 +260,38 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    
+                    </div>
                 </div>
-                
             </div>
             
+            <div class="col-md-6">
+                
+                <div class="table-responsive">
+                    <table class="table table-responsive table-hover table-striped table-bordered">
+                        <thead>
+                          
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Software Name</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($Services as $Service)
+                                <tr>
+                                    <td>{{$SL++}}</td>
+                                    <td><a href="/service/client/product/{{ $Service->id }}">{{$Service->ProductType}}</a></td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
         </div>
         
     </div>

@@ -78,120 +78,156 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+             {{-- show modal --}}
+             <div class="modal fade" id="client_show_modal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel2"> Show All Client</h5>
+                         <button class="btn-close" type="button" data-bs-dismiss="modal"
+                             aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <table class="table table-responsive table-bordered table-stripped table-condensed ">
+                            <thead>
+                                <tr>
+                                    <th class="bg-success ">Attribute</th>
+                                    <th class="bg-success ">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Client</td>
+                                    <td id="ShowClient"></td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                     </div>
 
-                {{-- insert modal --}}
-                <div class="modal fade" id="client_insert_modal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel2">Add New Client</h5>
-                                <button class="btn-close" type="button" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {{ Form::open(['url' => '/client', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="Client">Client Name:</label>
-                                        <input class="form-control" type="text" name="Client" required>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="ContactNumber">Contact Number:</label>
-                                        <input class="form-control" value="" type="text" name="ContactNumber"
-                                            required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="AltnativeContact">Altnative Contact:</label>
-                                        <input class="form-control" type="text" name="AltnativeContact">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="Country">Country:</label>
-
-                                        <select name="Country" class="form-select" id="">
-                                            <option value="" selected>Choose Country....</option>
-                                            @foreach ($Countries as $Country)
-                                                <option value="{{ $Country->name }}">{{ $Country->id }}.
-                                                    {{ $Country->name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="Division">Division:</label>
-
-                                        <select name="Division" class="form-select" id="" required>
-                                            <option value="" selected>Choose Division....</option>
-                                            @foreach ($Divisions as $Division)
-                                                <option value="{{ $Division->name }}">{{ $Division->name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="District">District:</label>
-
-                                        <select name="District" class="form-select" id="" required>
-                                            <option value="" selected>Choose District....</option>
-                                            @foreach ($Districts as $District)
-                                                <option value="{{ $District->name }}">{{ $District->name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="RefrredBy">Referred By:</label>
-
-                                        <select name="RefrredBy" class="form-select" id="" required>
-                                            <option value="" selected>Choose Referred ....</option>
-                                            @foreach ($Referreds as $Referred)
-                                                <option value="{{ $Referred->Name }}"> {{ $Referred->Name }} </option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="Address">Address:</label>
-                                        <input class="form-control" type="text" name="Address">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="Photo">Photo:</label>
-                                        <input class="form-control" type="file" name="Photo">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label class="col-form-label" for="OthersInf">OthersInf:</label>
-                                        <input type="text" name="OthersInf" class="form-control"
-                                            placeholder="type others information">
-                                        {{-- <textarea name="OthersInf" class="form-control" id="" cols="30" rows="10" placeholder="type others information"></textarea> --}}
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" type="submit">Add New Client</button>
-                            </div>
+                     <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                         <button class="btn btn-primary" type="submit">Add New Client</button>
+                     </div>
+                 </div>
+               
+             </div>
+         </div>
+            {{-- insert modal --}}
+            <div class="modal fade" id="client_insert_modal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Add New Client</h5>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        {{ Form::close() }}
+                        <div class="modal-body">
+                            {{ Form::open(['url' => '/client', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="Client">Client Name:</label>
+                                    <input class="form-control" type="text" name="Client" required>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="ContactNumber">Contact Number:</label>
+                                    <input class="form-control" value="" type="text" name="ContactNumber"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="AltnativeContact">Altnative Contact:</label>
+                                    <input class="form-control" type="text" name="AltnativeContact">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="Country">Country:</label>
+
+                                    <select name="Country" class="form-select" id="">
+                                        <option value="" selected>Choose Country....</option>
+                                        @foreach ($Countries as $Country)
+                                            <option value="{{ $Country->name }}">{{ $Country->id }}.
+                                                {{ $Country->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="Division">Division:</label>
+
+                                    <select name="Division" class="form-select" id="" required>
+                                        <option value="" selected>Choose Division....</option>
+                                        @foreach ($Divisions as $Division)
+                                            <option value="{{ $Division->name }}">{{ $Division->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="District">District:</label>
+
+                                    <select name="District" class="form-select" id="" required>
+                                        <option value="" selected>Choose District....</option>
+                                        @foreach ($Districts as $District)
+                                            <option value="{{ $District->name }}">{{ $District->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="RefrredBy">Referred By:</label>
+
+                                    <select name="RefrredBy" class="form-select" id="" required>
+                                        <option value="" selected>Choose Referred ....</option>
+                                        @foreach ($Referreds as $Referred)
+                                            <option value="{{ $Referred->Name }}"> {{ $Referred->Name }} </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="Address">Address:</label>
+                                    <input class="form-control" type="text" name="Address">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="Photo">Photo:</label>
+                                    <input class="form-control" type="file" name="Photo">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="col-form-label" for="OthersInf">OthersInf:</label>
+                                    <input type="text" name="OthersInf" class="form-control"
+                                        placeholder="type others information">
+                                    {{-- <textarea name="OthersInf" class="form-control" id="" cols="30" rows="10" placeholder="type others information"></textarea> --}}
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Add New Client</button>
+                        </div>
                     </div>
+                    {{ Form::close() }}
                 </div>
             </div>
+           
             {{-- update modal --}}
             <div class="modal fade" id="client_edit_modal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -355,7 +391,17 @@
             $('.ShowBtn').on('click', function(e) {
                 e.preventDefault();
                 var ID = $(this).attr('data-id');
-                console.log(ID);
+                // console.log(ID);
+                $.ajax({
+                    type:"GET",
+                    url:"/client/show/"+ID,
+                    success:function(data)
+                    {
+                        const myData = JSON.parse(data);
+                        $('#ShowClient').text(myData.Client);
+                    }
+
+                });
 
             });
 

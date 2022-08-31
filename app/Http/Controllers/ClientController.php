@@ -27,8 +27,14 @@ class ClientController extends Controller
         $Divisions  = Division::all();
         $Districts  = District::all();
         $Referreds  = Referred::all();
+        $SLAs = DB::table('servicelevels')->get();
+        $Refers = DB::table('referreds')->get();
+        $Products = DB::table('products')->get();
+        $Hosts = DB::table('hosts')->get();
         $Clients = DB::table('clients')->get();
-        return view('client.index',compact('Clients','Countries','Districts','Divisions','Referreds'))->with('SL',1);
+
+        $Clients = DB::table('clients')->get();
+        return view('client.index',compact('Clients','Countries','Districts','Divisions','Referreds','SLAs','Refers','Products','Hosts'))->with('SL',1);
     }
 
     /**
@@ -75,7 +81,8 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DB::table('clients')->where('id',$id)->get();
+        return json_encode($data);
     }
 
     /**
@@ -131,8 +138,19 @@ class ClientController extends Controller
     }
     public function ClientDetail($id)
     {
+        $SLAs = DB::table('servicelevels')->get();
+        $Refers = DB::table('referreds')->get();
+        $Products = DB::table('products')->get();
+        $Hosts = DB::table('hosts')->get();
+        $Domains = DB::table('domains')->get();
+        $Clients = DB::table('clients')->get();
+        $Services = DB::table('services')
+        ->leftjoin('products','services.ProductType','products.id')
+        ->get();
+        // dd($Services);
+
         $ClientDetails = DB::table('clients')->where('id',$id)->first();
         // return $ClientDetails;
-        return view('client.client-detail',compact('ClientDetails'));
+        return view('client.client-detail',compact('ClientDetails','SLAs','Refers','Products','Hosts','Domains','Services'))->with('SL',1);
     }
 }

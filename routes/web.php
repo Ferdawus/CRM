@@ -7,6 +7,7 @@ use App\Http\Controllers\DomainController;
 use App\Http\Controllers\HostController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ReferController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SLAController;
 use App\Http\Controllers\UserController;
 use App\Models\Domain;
@@ -48,7 +49,6 @@ Route::resource('user',RegisteredUserController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/client/detail/{id}',[ClientController::class,'ClientDetail']);
-
 Route::get('/client/show/{id}', [ClientController::class, 'show']);
 Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client/update',[ClientController::class,'update']);
@@ -90,6 +90,14 @@ Route::resource('/sla/service',SLAController::class);
 */
 Route::get('/host/{id}/delete', [HostController::class, 'destroy']);
 Route::resource('/host',HostController::class);
+/*
+|--------------------------------------------------------------------------
+|Service Routes
+|--------------------------------------------------------------------------
+*/
+Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
+Route::get('/service/client/product/{id}', [ServiceController::class,'find']);
+
 
 
 
