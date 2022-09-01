@@ -277,7 +277,7 @@
                                     <select name="Division" class="form-select" id="EditDivision" required>
                                         <option value="" selected>Choose Division....</option>
                                         @foreach ($Divisions as $Division)
-                                            <option value="{{ $Division->name }}">{{ $Division->name }}</option>
+                                            <option value="{{ $Division->name }}" selected>{{ $Division->name }}</option>
                                         @endforeach
 
                                     </select>
@@ -288,7 +288,7 @@
                                     <select name="District" class="form-select" id="EditDistrict" required>
                                         <option value="" selected>Choose District....</option>
                                         @foreach ($Districts as $District)
-                                            <option value="{{ $District->name }}">{{ $District->name }}</option>
+                                            <option value="{{ $District->name }}" selected>{{ $District->name }}</option>
                                         @endforeach
 
                                     </select>
@@ -301,7 +301,7 @@
                                     <select name="RefrredBy" class="form-select" id="EditReferred" required>
                                         <option value="" selected>Choose Referred ....</option>
                                         @foreach ($Referreds as $Referred)
-                                            <option value="{{ $Referred->Name }}"> {{ $Referred->Name }} </option>
+                                            <option value="{{ $Referred->Name }}" selected> {{ $Referred->Name }} </option>
                                         @endforeach
                                     </select>
                                 </div>

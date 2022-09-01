@@ -108,9 +108,22 @@ class ServiceController extends Controller
     {
         //
     }
-    public function find($id)
+    public function ClientServiceShow($id)
     {
-        // $Services = DB::table('services')->where('id',$id)->get();
+        // $SLAs = DB::table('servicelevels')->get();
+        // $Refers = DB::table('referreds')->get();
+        // $Products = DB::table('products')->get();
+        // $Hosts = DB::table('hosts')->get();
+        // $Domains = DB::table('domains')->get();
+        // $Clients = DB::table('clients')->get();
+        $ClientService = DB::table('services')->where('id',$id)->first();
+        $Client = DB::table('clients')->where('id',$ClientService->ClientId)->first();
+        $data = [
+            'ServiceShow' => $ClientService,
+            'ShowClient'  => $Client,
+        ];
+        return json_encode($data);
+        // return json_encode($ClientService);
         // return view('client.client-detail',compact('Services'));
 
     }

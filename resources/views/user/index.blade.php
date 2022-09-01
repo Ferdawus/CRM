@@ -79,35 +79,35 @@
                             </div>
                             <div class="modal-body">
                               {{ Form::open(['url' => '/user','method'=>'POST','class'=>'theme-form','files'=> true]) }}
-                                <div class="mb-3 row">
+                                <div class="mb-3 row {{ $errors->has('name') ? ' has-error' : '' }}">
                                   <label class="col-sm-3 col-form-label" for="UserName">UserName:</label>
                                   <div class="col-sm-9">
-                                    <input class="form-control" type="text" name="name" placeholder="type user name" required>
+                                    <input class="form-control" type="text" id="Name" name="name" placeholder="type user name">
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="Email">Email:</label>
                                   <div class="col-sm-9">
-                                    <input class="form-control" type="email" name="email" placeholder="type user email" required>
+                                    <input class="form-control" type="email" id="Email" name="email" placeholder="type user email">
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="password">Password:</label>
                                   <div class="col-sm-9">
-                                    <input class="form-control" type="password" name="password" placeholder="type user password"  required="">
+                                    <input class="form-control" type="password" id="Password" name="password" placeholder="type user password">
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm   
                                     Password:</label>
                                   <div class="col-sm-9">  
-                                    <input class="form-control" type="password" name="password_confirmation" placeholder="type user password"  required="">
+                                    <input class="form-control" type="password" id="ConPassword" name="password_confirmation" placeholder="type user password">
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="Role">Role:</label>
                                   <div class="col-sm-9">
-                                    <select class="form-select" id="validationCustom04" name="Role" required="">
+                                    <select class="form-select" id="validationCustom04" name="Role" id="Role">
                                       <option selected="" disabled="" value="">Choose...</option>
                                       <option>Admin</option>
                                       <option>User</option>
@@ -119,7 +119,7 @@
                                 <div class="mb-3 row">
                                   <label class="col-sm-3 col-form-label" for="Status">Status:</label>
                                   <div class="col-sm-9">
-                                    <select class="form-select" id="validationCustom04" name="Status" required="">
+                                    <select class="form-select" id="validationCustom04" name="Status" id="Status">
                                       <option selected="" disabled="" value="">Choose...</option>
                                       <option value="1">Active</option>
                                       <option value="0">Deactive</option>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="modal-footer">
                               <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                              <button class="btn btn-primary" type="submit">Add New User</button>
+                              <button class="btn btn-primary" type="submit" id="formSubmit">Add New User</button>
                             </div>
                             {{ Form::close() }}
                           </div>
@@ -211,32 +211,32 @@
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="UserName">UserName:</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="text" name="name" placeholder="type user name" required>
+                        <input class="form-control" type="text" name="name" placeholder="type user name">
                       </div>
                     </div>
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="Email">Email:</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="email" name="email" placeholder="type user email" required>
+                        <input class="form-control" type="email" name="email" placeholder="type user email">
                       </div>
                     </div>
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="password">Password:</label>
                       <div class="col-sm-9">
-                        <input class="form-control" type="password" name="password" placeholder="type user password"  required="">
+                        <input class="form-control" type="password" name="password" placeholder="type user password" ="">
                       </div>
                     </div>
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm   
                         Password:</label>
                       <div class="col-sm-9">  
-                        <input class="form-control" type="password" name="password_confirmation" placeholder="type user password"  required="">
+                        <input class="form-control" type="password" name="password_confirmation" placeholder="type user password" ="">
                       </div>
                     </div>
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="Role">Role:</label>
                       <div class="col-sm-9">
-                        <select class="form-select" id="validationCustom04" name="Role" required="">
+                        <select class="form-select" id="validationCustom04" name="Role"="">
                           <option selected="" disabled="" value="">Choose...</option>
                           <option>Admin</option>
                           <option>User</option>
@@ -248,7 +248,7 @@
                     <div class="mb-3 row">
                       <label class="col-sm-3 col-form-label" for="Status">Status:</label>
                       <div class="col-sm-9">
-                        <select class="form-select" id="validationCustom04" name="Status" required="">
+                        <select class="form-select" id="validationCustom04" name="Status"="">
                           <option selected="" disabled="" value="">Choose...</option>
                           <option value="1">Active</option>
                           <option value="0">Deactive</option>
@@ -279,6 +279,8 @@
 
     }
   </style>
+
+
 @endsection
 
 @section('header')

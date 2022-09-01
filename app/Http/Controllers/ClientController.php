@@ -144,13 +144,16 @@ class ClientController extends Controller
         $Hosts = DB::table('hosts')->get();
         $Domains = DB::table('domains')->get();
         $Clients = DB::table('clients')->get();
+        $ClientDetails = DB::table('clients')->where('id',$id)->first();
+        // return $ClientDetails;
         $Services = DB::table('services')
-        ->leftjoin('products','services.ProductType','products.id')
+        ->leftJoin('products','services.ProductType', '=', 'products.id')
+        // ->leftJoin('clients','services.Client_Stutus', '=','clients.Status')
+        ->select('services.*','products.ProductType')
         ->get();
         // dd($Services);
 
-        $ClientDetails = DB::table('clients')->where('id',$id)->first();
-        // return $ClientDetails;
+        
         return view('client.client-detail',compact('ClientDetails','SLAs','Refers','Products','Hosts','Domains','Services'))->with('SL',1);
     }
 }

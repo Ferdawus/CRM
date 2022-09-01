@@ -95,8 +95,10 @@ Route::resource('/host',HostController::class);
 |Service Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/service/client/product/{id}', [ServiceController::class,'ClientServiceShow']);
 Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
-Route::get('/service/client/product/{id}', [ServiceController::class,'find']);
+
+
 
 
 
