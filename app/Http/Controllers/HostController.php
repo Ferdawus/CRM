@@ -37,14 +37,14 @@ class HostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'HostedBy' => ['max:255'],
+            'HostedBy'    => ['max:255'],
             'Description' => ['max:500']
         ]);
 
-        $Host = array();
-        
-        $Host['HostedBy'] = $request->HostedBy;
+        $Host                = array();
+        $Host['HostedBy']    = $request->HostedBy;
         $Host['Description'] = $request->Description;
+
         DB::table('hosts')->insert($Host);
         return redirect()->back()->with('message','Data added Successfully');
     }

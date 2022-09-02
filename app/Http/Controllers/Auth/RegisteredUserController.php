@@ -23,8 +23,9 @@ class RegisteredUserController extends Controller
     public function index()
     {
         
-        $Users = DB::table('users')->get();  
-        return view('user.index',compact('Users'))->with('SL',1);
+        $Users = DB::table('users')->get(); 
+        $Roles = DB::table('roles')->get(); 
+        return view('user.index',compact('Users','Roles'))->with('SL',1);
     }
     /**
      * Display the registration view.

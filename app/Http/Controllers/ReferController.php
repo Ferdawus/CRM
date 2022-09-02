@@ -38,11 +38,11 @@ class ReferController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Name' => ['required','max:25'],
+            'Name'        => ['required','max:25'],
             'Description' => ['max:1000'],
         ]);
 
-        $Refer = array();
+        $Refer                = array();
         $Refer['Name']        = $request->Name;
         $Refer['Description'] = $request->Description;
         DB::table('referreds')->insert($Refer);

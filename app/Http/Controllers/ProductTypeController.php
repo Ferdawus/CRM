@@ -42,7 +42,7 @@ class ProductTypeController extends Controller
             'Description' => ['max:500'],
         ]);
 
-        $ProductType = array();
+        $ProductType                = array();
         $ProductType['ProductType'] = $request->ProductType;
         $ProductType['Description'] = $request->Description;
         DB::table('products')->insert($ProductType);

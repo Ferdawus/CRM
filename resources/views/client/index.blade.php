@@ -395,10 +395,13 @@
                 $.ajax({
                     type:"GET",
                     url:"/client/show/"+ID,
+                    dataType:'JSON',
                     success:function(data)
                     {
-                        const myData = JSON.parse(data);
-                        $('#ShowClient').text(myData.Client);
+                        // console.log(data);
+                        // const myData = JSON.parse(data);
+                        // console.log(data.Client);
+                        $('#ShowClient').text(data.Client);
                     }
 
                 });

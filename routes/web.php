@@ -7,6 +7,7 @@ use App\Http\Controllers\DomainController;
 use App\Http\Controllers\HostController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ReferController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SLAController;
 use App\Http\Controllers\UserController;
@@ -43,12 +44,24 @@ Route::get('/user/{id}/delete', [RegisteredUserController::class, 'destroy']);
 
 Route::resource('user',RegisteredUserController::class);
 
+
+/*
+|--------------------------------------------------------------------------
+| User Roles Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/roles/edit/{id}', [RoleController::class, 'edit']);
+Route::post('/roles/update', [RoleController::class, 'update']);
+Route::resource('roles',RoleController::class);
+
 /*
 |--------------------------------------------------------------------------
 | Client Routes
 |--------------------------------------------------------------------------
 */
 Route::get('/client/detail/{id}',[ClientController::class,'ClientDetail']);
+Route::get('/client/per-service/{id}/delete',[ClientController::class,'ClientServiceDelete']);
+// --------------------------------------------------------------------------
 Route::get('/client/show/{id}', [ClientController::class, 'show']);
 Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client/update',[ClientController::class,'update']);
@@ -96,11 +109,7 @@ Route::resource('/host',HostController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/service/client/product/{id}', [ServiceController::class,'ClientServiceShow']);
+Route::post('/service/client/product/update', [ServiceController::class,'ClientServiceUpdate']);
 Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
-
-
-
-
-
 
 require __DIR__.'/auth.php';

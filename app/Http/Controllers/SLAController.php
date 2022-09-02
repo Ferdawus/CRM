@@ -41,8 +41,8 @@ class SLAController extends Controller
         //     'Description' => ['Description'],
         // ]);
 
-        $SLA = array();
-        $SLA['Type'] = $request->Type;
+        $SLA                = array();
+        $SLA['Type']        = $request->Type;
         $SLA['Description'] = $request->Description;
         DB::table('servicelevels')->insert($SLA);
         return redirect()->back()->with('message','Data added Successfully');

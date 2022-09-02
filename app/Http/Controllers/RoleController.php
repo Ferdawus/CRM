@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class DomainController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class DomainController extends Controller
      */
     public function index()
     {
-        $Domains = DB::table('domains')->get();
-        return view('domain.index',compact('Domains'))->with('SL',1);
+        // $Roles = DB::table('roles')->get();
+        // return view('user.index',compact('Roles'));
     }
 
     /**
@@ -38,17 +37,14 @@ class DomainController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Type'        => ['max:255'],
-            'Provide'     => ['max:255'],
-            'Description' => ['max:500']
+            'Role'        => ['required','max:25'],
+            'Description' => ['max:1000'],
         ]);
 
-        $Domain                 = array();
-        $Domain['Type']         = $request->Type;
-        $Domain['Provide']      = $request->Provide;
-        $Domain['Description']  = $request->Description;
-
-        DB::table('domains')->insert($Domain);
+        $Role                = array();
+        $Role['Role']        = $request->Role;
+        $Role['Description'] = $request->Description;
+        DB::table('roles')->insert($Role);
         return redirect()->back()->with('message','Data added Successfully');
     }
 
@@ -71,7 +67,8 @@ class DomainController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('roles')->where('id',$id)->first();
+        return json_encode($data);
     }
 
     /**
@@ -81,9 +78,13 @@ class DomainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $Role                = array();
+        $Role['Role']        = $request->Role;
+        $Role['Description'] = $request->Description;
+        DB::table('roles')->where('id',$request->id)->update($Role);
+        return redirect()->back();
     }
 
     /**
@@ -94,7 +95,6 @@ class DomainController extends Controller
      */
     public function destroy($id)
     {
-        $Domain = DB::table('domains')->where('id',$id)->delete();
-        return redirect()->back()->with('message','Deleted Successfully');
+        //
     }
 }

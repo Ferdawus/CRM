@@ -37,7 +37,8 @@ class ServiceController extends Controller
     public function store(Request $request,$ClientId)
     {
      
-        $Service = array();
+        $Service                         = array();
+
         $Service['ClientId']             = $ClientId;
         $Service['BussinessName']        = $request->BussinessName;
         $Service['BussinessAddess']      = $request->BussinessAddess;
@@ -59,7 +60,8 @@ class ServiceController extends Controller
         $Service['HostedBy']             = $request->HostedBy;   
         $Service['DomainProvide']        = $request->DomainProvide;   
         $Service['ProductRenewDate']     = $request->ProductRenewDate;   
-        $Service['created_at']           = $request->created_at;   
+        $Service['created_at']           = $request->created_at;  
+
         DB::table('services')->insert($Service);
         return redirect()->back()->with('message','Data added Successfully');
     }
@@ -95,7 +97,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -106,25 +108,55 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function ClientServiceShow($id)
     {
-        // $SLAs = DB::table('servicelevels')->get();
-        // $Refers = DB::table('referreds')->get();
-        // $Products = DB::table('products')->get();
-        // $Hosts = DB::table('hosts')->get();
-        // $Domains = DB::table('domains')->get();
-        // $Clients = DB::table('clients')->get();
         $ClientService = DB::table('services')->where('id',$id)->first();
-        $Client = DB::table('clients')->where('id',$ClientService->ClientId)->first();
-        $data = [
-            'ServiceShow' => $ClientService,
-            'ShowClient'  => $Client,
-        ];
+        $Client        = DB::table('clients')->where('id',$ClientService->ClientId)->first();
+        $data          = [
+                            'ServiceShow' => $ClientService,
+                            'ShowClient'  => $Client,
+                        ];
         return json_encode($data);
         // return json_encode($ClientService);
-        // return view('client.client-detail',compact('Services'));
+    }
+
+    public function ClientServiceUpdate(Request $request)
+    {
+        $Service                         = array();
+
+        // $Service['ClientId']             = $ClientId;
+        $Service['BussinessName']        = $request->BussinessName;
+        $Service['BussinessAddess']      = $request->BussinessAddess;
+        $Service['OtherBussinessAddess'] = $request->OtherBussinessAddess;
+        $Service['SoftwarePrice']        = $request->SoftwarePrice;
+        $Service['InstallationSerge']    = $request->InstallationSerge;
+        $Service['SLAType']              = $request->SLAType;
+        $Service['SLAAmount']            = $request->SLAAmount;
+        $Service['BillingType']          = $request->BillingType;
+        $Service['BillingAmount']        = $request->BillingAmount;
+        $Service['BillingDate']          = $request->BillingDate;
+        $Service['ProductType']          = $request->ProductType;
+        $Service['ProductInstallId']     = $request->ProductInstallId;
+        $Service['ProductUrl']           = $request->ProductUrl;   
+        $Service['ProductUserName']      = $request->ProductUserName;   
+        $Service['ProductPassword']      = $request->ProductPassword;   
+        $Service['ProductInstallDate']   = $request->ProductInstallDate;   
+        $Service['RefrredBy']            = $request->RefrredBy;   
+        $Service['HostedBy']             = $request->HostedBy;   
+        $Service['DomainProvide']        = $request->DomainProvide;   
+        $Service['ProductRenewDate']     = $request->ProductRenewDate;   
+        $Service['created_at']           = $request->created_at;  
+
+        DB::table('services')->where('id',$request->id)->update($Service);
+        return redirect()->back()->with('message','Data Update Succesfully');
 
     }
 }

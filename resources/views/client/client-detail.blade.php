@@ -280,6 +280,7 @@
                                 <th scope="col">Software Name</th>
                                 <th scope="col">Next SLA Bill Date</th>
                                 <th scope="col">SLA Current Bill Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -294,8 +295,15 @@
                                             {{ $Service->ProductType }}
                                         </button>
                                     </td>
+                                    
                                     <td>
                                         
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <a href="/client/per-service/{{ $Service->id }}/delete" class="">
+                                            <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -320,7 +328,8 @@
                     </div>
                     <div class="modal-body">
 
-                        {{ Form::open(['url'=>'','method'=>'POST','files'=>true])}}
+                        {{ Form::open(['url'=>'/service/client/product/update','method'=>'POST','files'=>true])}}
+                        <input type="hidden" name="id" id="ClientServiceId">
                             <div class="row">
                                 <div class="col-md-5">
                                     <fieldset class="p-3">
@@ -543,15 +552,13 @@
                                     
                                 </div>
                             </fieldset>
-                        
-                          
-                        {{ Form::close() }}
                     </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                         <button class="btn btn-primary" type="submit">Save</button>
                     </div>
+                    {{ Form::close() }}
                 </div>
             
             </div>
@@ -690,7 +697,8 @@
                     success: function(data){
                         var myData = data.ServiceShow;
                         var myData1 = data.ShowClient;
-                        console.log(myData1);
+                        // console.log(myData1);
+                        $('#ClientServiceId').attr('value',myData.id);
                         $('#Client').text(myData1.Client);
                         $('#ShowPhone').text(myData1.ContactNumber);
                         $('#ShowPhone').text(myData1.ContactNumber);
