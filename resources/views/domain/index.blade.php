@@ -37,8 +37,8 @@
                     <td>{{$Domain->Provide}}</td>
                     <td>{{$Domain->Description}}</td>
                     <td class="d-flex">
-                      <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
-                      <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a>
+                     
+                      {{-- <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a> --}}
                       <a href="/domain/{{$Domain->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
                     </td>
                   </tr>

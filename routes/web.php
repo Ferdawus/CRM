@@ -41,6 +41,10 @@ Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth
 |--------------------------------------------------------------------------
 */
 Route::get('/user/{id}/delete', [RegisteredUserController::class, 'destroy']);
+Route::get('/user/edit/{id}', [RegisteredUserController::class, 'edit']);
+Route::post('/user/update', [RegisteredUserController::class, 'update']);
+Route::get('/user/status/{id}/{status}', [RegisteredUserController::class, 'update_status']);
+
 
 Route::resource('user',RegisteredUserController::class);
 
@@ -51,7 +55,9 @@ Route::resource('user',RegisteredUserController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/roles/edit/{id}', [RoleController::class, 'edit']);
+Route::get('/roles/{id}/delete', [RoleController::class, 'destroy']);
 Route::post('/roles/update', [RoleController::class, 'update']);
+Route::post('/role/asign',[RoleController::class,'RoleAsignStore']);
 Route::resource('roles',RoleController::class);
 
 /*

@@ -35,8 +35,8 @@
                     <td>{{$Service->Type}}</td>
                     <td>{{$Service->Description}}</td>
                     <td class="d-flex">
-                      <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
-                      <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a>
+                      {{-- <a href=""><i class="icofont icofont-eye fs-5 me-2"></i></a>
+                      <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a> --}}
                       <a href="/sla/service/{{$Service->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
                     </td>
                   </tr>

@@ -56,6 +56,8 @@
 <script src="{{ asset('assets') }}/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="{{ asset('assets') }}/js/datepicker/date-picker/datepicker.custom.js"></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets') }}/js/script.js"></script>

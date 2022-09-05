@@ -66,7 +66,7 @@
                                             <i class="icofont icofont-edit fs-5 text-secondary"></i>
                                         </button>
 
-                                        <a href="/client/{{ $Client->id }}/delete" class="">
+                                        <a href="/client/{{ $Client->id }}/delete" class="DeleteBtn">
                                             <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
                                         </a>
 
@@ -82,7 +82,7 @@
              {{-- show modal --}}
              <div class="modal fade" id="client_show_modal" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalLabel" aria-hidden="true">
-             <div class="modal-dialog" role="document">
+             <div class="modal-dialog modal-lg" role="document">
                  <div class="modal-content">
                      <div class="modal-header">
                          <h5 class="modal-title" id="exampleModalLabel2"> Show All Client</h5>
@@ -95,12 +95,41 @@
                                 <tr>
                                     <th class="bg-success ">Attribute</th>
                                     <th class="bg-success ">Value</th>
+                                    <th class="bg-success ">Attribute</th>
+                                    <th class="bg-success ">Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Client</td>
+                                    <td><b>Client Name</b></td>
                                     <td id="ShowClient"></td>
+                                    <td><b>Contact Number</b></td>
+                                    <td id="ShowContactNumber"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Altnative Contact</b></td>
+                                    <td id="ShowAltnativeContact"></td>
+                                    <td><b>Country</b></td>
+                                    <td id="ShowCountry"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Division</b></td>
+                                    <td id="ShowDivision"></td>
+                                    <td><b>District</b></td>
+                                    <td id="ShowDistrict"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Refrred By</b></td>
+                                    <td id="ShowRefrredBy"></td>
+                                    <td><b>Address</b></td>
+                                    <td id="ShowAddress"></td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td><b>OthersInf</b></td>
+                                    <td id="ShowOthersInf"></td>
+                                   
+                                   
                                 </tr>
                                
                             </tbody>
@@ -114,7 +143,7 @@
                  </div>
                
              </div>
-         </div>
+            </div>
             {{-- insert modal --}}
             <div class="modal fade" id="client_insert_modal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -150,7 +179,7 @@
                                     <select name="Country" class="form-select" id="">
                                         <option value="" selected>Choose Country....</option>
                                         @foreach ($Countries as $Country)
-                                            <option value="{{ $Country->name }}">{{ $Country->id }}.
+                                            <option value="{{ $Country->name }}">
                                                 {{ $Country->name }}</option>
                                         @endforeach
 
@@ -333,6 +362,7 @@
                     {{ Form::close() }}
                 </div>
             </div>
+
         </div>
     </div>
     </div>
@@ -402,11 +432,25 @@
                         // const myData = JSON.parse(data);
                         // console.log(data.Client);
                         $('#ShowClient').text(data.Client);
+                        $('#ShowContactNumber').text(data.ContactNumber);
+                        $('#ShowAltnativeContact').text(data.AltnativeContact);
+                        $('#ShowCountry').text(data.Country);
+                        $('#ShowDivision').text(data.Division);
+                        $('#ShowDistrict').text(data.District);
+                        $('#ShowRefrredBy').text(data.RefrredBy);
+                        $('#ShowAddress').text(data.Address);
+                        $('#ShowOthersInf').text(data.OthersInf);
                     }
 
                 });
 
             });
+
+            // $('.DeleteBtn').on('click',function(e){
+            //     e.preventDefault();
+            //     var ID = $('this').attr()
+            // });
+
 
 
 

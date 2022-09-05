@@ -22,10 +22,18 @@ class RegisteredUserController extends Controller
      */
     public function index()
     {
-        
-        $Users = DB::table('users')->get(); 
-        $Roles = DB::table('roles')->get(); 
-        return view('user.index',compact('Users','Roles'))->with('SL',1);
+        //$Users = DB::table('users')->get(); 
+        // $Roles = DB::table('roles')->get(); 
+        $GetData = DB::table('users')
+        ->join('roles','users.Role','=', 'roles.id')
+        ->select('users.*','roles.Role as RoleName')
+        ->get(); 
+        //echo "<pre>";
+        //print_r($Roles);
+
+        $Roles = DB::table('roles')->get();
+
+        return view('user.index',compact('GetData', 'Roles'))->with('SL',1);
     }
     /**
      * Display the registration view.
@@ -66,6 +74,45 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect()->back();
+    }
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = DB::table('users')->where('id',$id)->first();
+        return json_encode($data);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $User                = array();
+        $User['name']        = $request->name;
+        $User['email']       = $request->email;
+        $User['password']    = $request->password;
+        // $User['password_confirmation'] = $request->password_confirmation;
+        $User['Role']        = $request->Role;
+        DB::table('users')->where('id',$request->id)->update($User);
+        return redirect()->back();
+    }
+
+
+    public function update_status($id, $status){
+        DB::table('users')->where('id',$id)->update([
+            'Status' => $status,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        return redirect()->back();
+
     }
     /**
      * Remove the specified resource from storage.
