@@ -17,32 +17,29 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('ClientId');
-            $table->string('BussinessName');
+            $table->string('BussinessName')->nullable();
             $table->text('BussinessAddess')->nullable();
             $table->text('OtherBussinessAddess')->nullable();
-            $table->decimal('SoftwarePrice',10,2);
-            $table->decimal('InstallationSerge',10,2);
+            $table->decimal('SoftwarePrice',20,3)->nullable();
+            $table->decimal('InstallationSerge',10,2)->nullable();
             $table->bigInteger('SLAType')->default(0);
             $table->decimal('SLAAmount',10,2)->nullable();
-            $table->bigInteger('BillingType');
-            $table->decimal('BillingAmount')->nullable();
-            $table->dateTime('BillingDate')->nullable();
+            // $table->bigInteger('BillingType');
+            // $table->decimal('BillingAmount')->nullable();
+            // $table->dateTime('BillingDate')->nullable();
             $table->bigInteger('ProductType');
-            $table->decimal('ProductInstallId');
-            $table->string('ProductUrl');
-            $table->string('ProductUserName');
-            $table->string('ProductPassword');
-            $table->dateTime('ProductInstallDate');
+            $table->bigInteger('ProductName')->nullable();
+            $table->decimal('ProductInstallId')->nullable();
+            // $table->string('ProductUrl');
+            // $table->string('ProductUserName');
+            // $table->string('ProductPassword');
+            $table->dateTime('ProductInstallDate')->nullable();
             $table->bigInteger('RefrredBy')->nullable();
             $table->bigInteger('HostedBy')->default(0);
-            $table->bigInteger('DomainType')->default(0);
+            // $table->bigInteger('DomainType')->default(0);
             $table->bigInteger('DomainProvide')->default(0);
-            $table->dateTime('ProductRenewDate')->nullable();
-
-            
-
-
-
+            $table->text('Note')->nullable();
+            $table->dateTime('ProductBillDate')->nullable();
             $table->timestamps();
         });
     }

@@ -1,108 +1,176 @@
-
 @extends('dashboard.inc.main')
 {{-- @extends('dashboard.inc.footer') --}}
 
 @section('content')
-  <div class="page-body">
-      <!-- Container-fluid starts-->
-      <div class="col-md-11 m-auto">
-        <div class="card">
-          <div class="card-header" id="success-color">
-            <h5 id="title">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#domain-insert" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"> 
-                    <i class="fa-solid fa-circle-plus mr-2"></i>
-                    Add
-                </button> 
-                  Domain List
-            </h5>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-responsive table-hover table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">SL</th>
-                  <th scope="col">Domain Billing Type</th>
-                  <th scope="col">Domain Provide</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Action</th>
-                 
-                </tr>
-              </thead>
-              <tbody>
-        
-                @foreach ($Domains as $Domain)
-                  <tr>
-                    <td>{{$SL++}}</td>
-                    <td>{{$Domain->Type}}</td>
-                    <td>{{$Domain->Provide}}</td>
-                    <td>{{$Domain->Description}}</td>
-                    <td class="d-flex">
-                     
-                      {{-- <a href="" class=""><i class="icofont icofont-edit fs-5 text-secondary"></i></a> --}}
-                      <a href="/domain/{{$Domain->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
-                    </td>
-                  </tr>
-                @endforeach
-                
-              </tbody>
-            </table>
-          </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="col-md-11 m-auto">
+            <div class="card">
+                <div class="card-header" id="success-color">
+                    <h5 id="title">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#domain-insert" data-whatever="@mdo"
+                            class="btn btn-primary-light" data-bs-original-title="" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Create User">
+                            <i class="fa-solid fa-circle-plus mr-2"></i>
+                            Add
+                        </button>
+                        Domain List
+                    </h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-responsive table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Domain Billing Type</th>
+                                <th scope="col">Domain Provide</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Action</th>
 
-          {{-- insert modal --}}
-          <div class="modal fade" id="domain-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel2">Add New Product </h5>
-                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($Domains as $Domain)
+                                <tr>
+                                    <td>{{ $SL++ }}</td>
+                                    <td>{{ $Domain->Type }}</td>
+                                    <td>{{ $Domain->Provide }}</td>
+                                    <td>{{ $Domain->Description }}</td>
+                                    <td class="d-flex">
+
+                                        <button class="EditBtn" data-bs-toggle="modal" data-bs-target="#domain-edit"
+                                            data-whatever="@mdo" class="btn btn-primary-light" data-bs-original-title=""
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"
+                                            data-id="{{ $Domain->id }}">
+                                            <i class="icofont icofont-edit fs-5 text-secondary"></i>
+                                        </button>
+                                        <a href="/domain/{{ $Domain->id }}/delete" class=""><i
+                                                class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
-                <div class="modal-body">
-                  {{ Form::open(['url' => '/domain','method'=>'POST','class'=>'theme-form','files'=> true]) }}
-                      <div class="mb-3">
-                        <label class="col-form-label" for="Type">Domain Billing Type:</label>
-                        <input class="form-control" type="text" name="Type"  required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="col-form-label" for="Provide">Domain Provide:</label>
-                        <input class="form-control" type="text" name="Provide"  required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="col-form-label" for="Description">Description:</label>
-                        <textarea name="Description" class="form-control" id="" cols="10" rows="5"></textarea>
-                        
-                      </div>
+
+                {{-- insert modal --}}
+                <div class="modal fade" id="domain-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2">Add New Product </h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ Form::open(['url' => '/domain', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
+                                <div class="mb-3">
+                                    <label class="col-form-label" for="Type">Domain Billing Type:</label>
+                                    <input class="form-control" type="text" name="Type" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label" for="Provide">Domain Provide:</label>
+                                    <input class="form-control" type="text" name="Provide" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label" for="Description">Description:</label>
+                                    <textarea name="Description" class="form-control" id="" cols="10" rows="5"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit">Add New Domain </button>
+                            </div>
+
+                            {{ Form::close() }}
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" type="submit">Add New Product </button>
+
+                {{-- edit modal --}}
+                <div class="modal fade" id="domain-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2">Update Product </h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ Form::open(['url' => '/domain/update', 'method' => 'POST', 'id' => 'DomainEditForm', 'class' => 'theme-form', 'files' => true]) }}
+                                <div class="mb-3">
+                                    <input type="hidden" name="id" id="DomainId">
+                                    <label class="col-form-label" for="Type">Domain Billing Type:</label>
+                                    <input class="form-control" type="text" id="EditType" name="Type" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label" for="Provide">Domain Provide:</label>
+                                    <input class="form-control" type="text" id="EditProvite" name="Provide" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="col-form-label" for="Description">Description:</label>
+                                    <textarea name="Description" class="form-control" id="EditDescription" cols="10" rows="5"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit">Update Product </button>
+                            </div>
+
+                            {{ Form::close() }}
+                        </div>
+                    </div>
                 </div>
-            
-                {{ Form::close() }}
-              </div>
+
             </div>
-          </div>
         </div>
-      </div>
-  </div>
-  <style>
-    #success-color{
-        background-color: #e3ebf2;
-        padding: 8px  !important;
-        border-radius: 3px !important; 
-    }
-    #title{
-        /* color: white; */
-        font-size: 18px;
+    </div>
+    <style>
+        #success-color {
+            background-color: #e3ebf2;
+            padding: 8px !important;
+            border-radius: 3px !important;
+        }
 
-    }
-  </style>
+        #title {
+            /* color: white; */
+            font-size: 18px;
+
+        }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.EditBtn').on('click', function(e) {
+                e.preventDefault();
+                var ID = $(this).attr('data-id');
+                $.ajax({
+                    type: "get",
+                    url: "/domain/edit/" + ID,
+                    data: $('#DomainEditForm').serialize(),
+                    dataType: "JSON",
+                    success: function(data) {
+                        $('#DomainId').attr('value',data.id);
+
+                        $('#EditType').val(data.Type);
+                        $('#EditProvite').val(data.Provide);
+                        $('#EditDescription').val(data.Description);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('header')
-   <script>
-   
-   </script>
+    <script></script>
 @endsection
 @section('footer')
-
 @endsection

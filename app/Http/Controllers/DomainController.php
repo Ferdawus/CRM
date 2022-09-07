@@ -71,7 +71,8 @@ class DomainController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('domains')->where('id',$id)->first();
+        return json_encode($data);
     }
 
     /**
@@ -81,9 +82,20 @@ class DomainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $domain                 = array();
+        $domain['Type']         = $request->Type;
+        $domain['Provide']      = $request->Provide;
+        $domain['Description']  = $request->Description;
+        // dd($request->id);
+        $update = DB::table('domains')->where('id',$request->id)->update($domain);
+        if ($update) {
+            return redirect()->back()->with('message','Data Update Succesfully');
+        }else{
+            return "not updated";
+        }
+
     }
 
     /**

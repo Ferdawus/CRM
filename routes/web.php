@@ -10,8 +10,11 @@ use App\Http\Controllers\ReferController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SLAController;
+use App\Http\Controllers\InvioceController;
+
 use App\Http\Controllers\UserController;
 use App\Models\Domain;
+use Egulias\EmailValidator\Parser\CommentStrategy\DomainComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,10 +47,7 @@ Route::get('/user/{id}/delete', [RegisteredUserController::class, 'destroy']);
 Route::get('/user/edit/{id}', [RegisteredUserController::class, 'edit']);
 Route::post('/user/update', [RegisteredUserController::class, 'update']);
 Route::get('/user/status/{id}/{status}', [RegisteredUserController::class, 'update_status']);
-
-
 Route::resource('user',RegisteredUserController::class);
-
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +87,8 @@ Route::resource('refer',ReferController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/product/type/{id}/delete', [ProductTypeController::class, 'destroy']);
+Route::get('/product/type/edit/{id}', [ProductTypeController::class, 'edit']);
+Route::post('/product/type/update', [ProductTypeController::class, 'update']);
 Route::resource('/product/type',ProductTypeController::class);
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +96,8 @@ Route::resource('/product/type',ProductTypeController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/domain/{id}/delete', [DomainController::class, 'destroy']);
+Route::get('/domain/edit/{id}',[DomainController::class,'edit']);
+Route::post('/domain/update',[DomainController::class,'update']);
 Route::resource('/domain',DomainController::class);
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +105,8 @@ Route::resource('/domain',DomainController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/sla/service/{id}/delete', [SLAController::class, 'destroy']);
+Route::get('/sla/service/edit/{id}', [SLAController::class, 'edit']);
+Route::post('/sla/service/update', [SLAController::class, 'update']);
 Route::resource('/sla/service',SLAController::class);
 /*
 |--------------------------------------------------------------------------
@@ -111,11 +117,24 @@ Route::get('/host/{id}/delete', [HostController::class, 'destroy']);
 Route::resource('/host',HostController::class);
 /*
 |--------------------------------------------------------------------------
-|Service Routes
+|Service Client Routes
 |--------------------------------------------------------------------------
 */
 Route::get('/service/client/product/{id}', [ServiceController::class,'ClientServiceShow']);
 Route::post('/service/client/product/update', [ServiceController::class,'ClientServiceUpdate']);
 Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
 
+/*
+|--------------------------------------------------------------------------
+|Invioce Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('/invoice',InvioceController::class);
+require __DIR__.'/auth.php';
+/*
+|--------------------------------------------------------------------------
+|All Service Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('/service',ServiceController::class);
 require __DIR__.'/auth.php';

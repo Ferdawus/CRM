@@ -68,7 +68,7 @@ class ClientController extends Controller
         $Client['OthersInf']        = $request->OthersInf;
         $Client['created_at']       = date('Y-m-d H:i:s');
         $Client['CreatedBy']        = Auth::id();
-        
+
         DB::table('clients')->insert($Client);
         return redirect()->back()->with('message','Data added Successfully');
 
@@ -155,9 +155,9 @@ class ClientController extends Controller
         $ClientDetails = DB::table('clients')->where('id',$id)->first();
 
         $Services      = DB::table('services')
-        ->leftJoin('products','services.ProductType', '=', 'products.id')
-        // ->leftJoin('clients','services.Client_Stutus', '=','clients.Status')
-        ->select('services.*','products.ProductType')
+        ->leftJoin('products','services.ProductName', '=', 'products.id')
+        ->leftJoin('servicelevels','services.SLAType', '=', 'servicelevels.id')
+        ->select('services.*','products.ProductName','servicelevels.Type')
         ->get();
         // dd($Services);
 

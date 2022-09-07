@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use phpDocumentor\Reflection\Types\Nullable;
 
 return new class extends Migration
 {
@@ -14,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('Division')->nullable();
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('ProductName');
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('ProductName');
+        });
     }
 };

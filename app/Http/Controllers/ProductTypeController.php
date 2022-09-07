@@ -44,6 +44,7 @@ class ProductTypeController extends Controller
 
         $ProductType                = array();
         $ProductType['ProductType'] = $request->ProductType;
+        $ProductType['ProductName'] = $request->ProductName;
         $ProductType['Description'] = $request->Description;
         DB::table('products')->insert($ProductType);
         return redirect()->back()->with('message','Data added Successfully');
@@ -68,7 +69,8 @@ class ProductTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('products')->where('id',$id)->first();
+        return json_encode($data);
     }
 
     /**
@@ -78,9 +80,14 @@ class ProductTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $ProductType                = array();
+        $ProductType['ProductType'] = $request->ProductType;
+        $ProductType['ProductName'] = $request->ProductName;
+        $ProductType['Description'] = $request->Description;
+        DB::table('products')->where('id',$request->id)->update($ProductType);
+        return redirect()->back()->with('message','Data Updated Successfully');
     }
 
     /**

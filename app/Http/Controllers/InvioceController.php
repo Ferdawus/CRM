@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class SLAController extends Controller
+class InvioceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class SLAController extends Controller
      */
     public function index()
     {
-        $Services = DB::table('servicelevels')->get();
-        return view('sla.index',compact('Services'))->with('SL',1);
+        return view('invoice.index');
     }
 
     /**
@@ -36,16 +34,7 @@ class SLAController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'Type'        => ['max:255'],
-        //     'Description' => ['Description'],
-        // ]);
-
-        $SLA                = array();
-        $SLA['Type']        = $request->Type;
-        $SLA['Description'] = $request->Description;
-        DB::table('servicelevels')->insert($SLA);
-        return redirect()->back()->with('message','Data added Successfully');
+        //
     }
 
     /**
@@ -67,8 +56,7 @@ class SLAController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::table('servicelevels')->where('id',$id)->first();
-        return json_encode($data);
+        //
     }
 
     /**
@@ -78,13 +66,9 @@ class SLAController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $SLA                = array();
-        $SLA['Type']        = $request->Type;
-        $SLA['Description'] = $request->Description;
-        DB::table('servicelevels')->where('id',$request->id)->update($SLA);
-        return redirect()->back()->with('message','Data Update Successfully');
+        //
     }
 
     /**
@@ -95,8 +79,6 @@ class SLAController extends Controller
      */
     public function destroy($id)
     {
-        $SLA = DB::table('servicelevels')->where('id',$id)->delete();
-        return redirect()->back()->with('message','Deleted Successfully');
-
+        //
     }
 }

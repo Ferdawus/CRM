@@ -26,9 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('CreatedBy')->nullable();
-            $table->dropColumn('UpdatedBy')->nullable();
-        });
+        Schema::dropIfExists('clients');
     }
 };
