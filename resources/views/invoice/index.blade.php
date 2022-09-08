@@ -45,14 +45,14 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                {{ Form::open(['url' => '/host', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
+                                {{ Form::open(['url' => '/invoice', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
                                 <div class="container">
                                     <h1 class="fs-4 text-info">INVOICE</h1>
                                     <div class="row g-4">
                                         <div class="col-md-2  mb-3">
 
-                                            <label class="col-form-label pt-0 text-left" for="Client"> Client:</label>
-                                            <select name="ProductType" class="form-select" id="Client">
+                                            <label class="col-form-label pt-0 text-left" for="ClientName"> Client:</label>
+                                            <select name="ClientName" class="form-select" id="Client">
                                                 <option value="" selected>Select Client....</option>
                                                 @foreach ($Clients as $Client)
                                                     <option value="{{ $Client->id }}">
@@ -62,21 +62,21 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2 mb-3">
-                                            <label for="Date" class="col-form-label pt-0">Invoice Date:</label>
-                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Date">
+                                            <label for="InvoiceDate" class="col-form-label pt-0">Invoice Date:</label>
+                                            <input class="form-control" name="InvoiceDate" style="border-color:#CED4DA;" type="date" placeholder="Invoice Date">
                                         </div>
                                         <div class="col-md-2 mb-3">
-                                            <label for="Invoice" class="col-form-label pt-0">Invoice #:</label>
-                                            <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Invoice">
+                                            <label for="InvoiceName" class="col-form-label pt-0">Invoice #:</label>
+                                            <input class="form-control" name="InvoiceName" style="border-color:#CED4DA;" type="text" placeholder="Invoice">
                                         </div>
 
                                         <div class="col-md-3">
                                             <label for="PurchaseOrderDate" class="col-form-label pt-0">Purchase Order Date :</label>
-                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Purchase Order Date">
+                                            <input class="form-control"  name="PurchaseOrderDate" style="border-color:#CED4DA;" type="date" placeholder="Purchase Order Date">
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="PaymentDueby" class="col-form-label pt-0">Payment Due by:</label>
-                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Payment Due by">
+                                            <label for="PaymentDueDate" class="col-form-label pt-0">Payment Due by:</label>
+                                            <input class="form-control"  name="PaymentDueDate" style="border-color:#CED4DA;" type="date" placeholder="Payment Due by">
                                         </div>
 
                                     </div>
@@ -86,7 +86,7 @@
                                             <div class="card-body">
                                                 <div class="row" id="ItemArea">
                                                     <div class="col-md-2">
-                                                        <select name="ProductType" class="form-select ItemShowProduct" id="Item" name="ItemName[]">
+                                                        <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
                                                             <option value="" selected>Select Item....</option>
                                                             @foreach ($Items as $Item)
                                                                 <option value="{{ $Item->id }}">
@@ -106,7 +106,7 @@
                                                         <input type="number" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <input type="number" name="ItemPrice[]" class="form-control"placeholder='Line Total' required>
+                                                        <input type="number" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
@@ -121,17 +121,18 @@
                                             <div class="mb-3 row">
                                                 <label class="col-sm-4 col-form-label">Account Number:</label>
                                                 <div class="col-sm-6">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="AccountNumber" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-4 col-form-label">Payment Method:</label>
                                                 <div class="col-sm-6">
-                                                  <select name="" id="" class="form-control"  style="border-color:#CED4DA;">
+                                                  <select name="PaymentMethod" id="" class="form-control"  style="border-color:#CED4DA;">
                                                     <option value="">Choose ....</option>
-                                                    <option value="">Bekhas</option>
-                                                    <option value="">Nogod</option>
-                                                    <option value="">Islamic Bank</option>
+                                                    <option value="Chash">Chash</option>
+                                                    <option value="Bkhas">Bkhas</option>
+                                                    <option value="Nogod">Nogod</option>
+                                                    <option value="Bank">Bank</option>
                                                   </select>
                                                 </div>
                                             </div>
@@ -140,31 +141,31 @@
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Sub-Total:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="SubTotal" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Discount:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="Discount" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">TOTAL:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="Total" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Advance:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="Advance" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Net Payable:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                  <input style="border-color:#CED4DA;" name="NetPayable" class="form-control" type="number">
                                                 </div>
                                             </div>
                                         </div>
@@ -212,7 +213,7 @@
                 var options = $('.ItemShowProduct').html();
                 // console.log(options);
 
-                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select name="ProductType" class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" name="ItemPrice[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
+                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
             });
             $('body').on('click','#RemoveItemBtn',function(e){
                 e.preventDefault();

@@ -144,17 +144,19 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ClientDetail($id)
+    public function ClientDetail(Request $request,$id)
     {
+
         $SLAs          = DB::table('servicelevels')->get();
         $Refers        = DB::table('referreds')->get();
         $Products      = DB::table('products')->get();
         $Hosts         = DB::table('hosts')->get();
         $Domains       = DB::table('domains')->get();
         $Clients       = DB::table('clients')->get();
-        $ClientDetails = DB::table('clients')->where('id',$id)->first();
 
-        $Services      = DB::table('services')
+        $ClientDetails = DB::table('clients')->where('id',$request->id)->first();
+
+        $Services      = DB::table('services')->where('ClientId',$request->id)
         ->leftJoin('products','services.ProductName', '=', 'products.id')
         ->leftJoin('servicelevels','services.SLAType', '=', 'servicelevels.id')
         ->select('services.*','products.ProductName','servicelevels.Type')

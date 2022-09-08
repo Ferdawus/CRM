@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class InvioceController extends Controller
+class InvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +39,27 @@ class InvioceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->request->all();
+        // return $request->ItemName;
+        $Invoice = Invoice::create($request->all());
+
+        $TotalItems = sizeof($request->ItemName);
+        for($i = 0; $i < $TotalItems; $i++)
+        {
+            $InvoiceItem              = new InvoiceItem();
+            $InvoiceItem->invoiceId   = $Invoice->id;
+            $InvoiceItem->ProductItem = $request->ItemName[$i];
+            $InvoiceItem->Description = $request->ItemDescription[$i];
+            $InvoiceItem->Qty         = $request->ItemQty[$i];
+            $InvoiceItem->UnitPrice	  = $request->ItemUnitPrice[$i];
+            $InvoiceItem->LineTotal   = $request->ItemLineTotal[$i];
+
+            $InvoiceItem->save();
+
+
+        }
+        return'Invoice Added SuccessFully !';
+
     }
 
     /**

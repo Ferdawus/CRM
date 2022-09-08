@@ -10,8 +10,7 @@ use App\Http\Controllers\ReferController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SLAController;
-use App\Http\Controllers\InvioceController;
-
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserController;
 use App\Models\Domain;
 use Egulias\EmailValidator\Parser\CommentStrategy\DomainComment;
@@ -129,7 +128,7 @@ Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
 |Invioce Routes
 |--------------------------------------------------------------------------
 */
-Route::resource('/invoice',InvioceController::class);
+Route::resource('/invoice',InvoiceController::class);
 require __DIR__.'/auth.php';
 /*
 |--------------------------------------------------------------------------
@@ -137,4 +136,6 @@ require __DIR__.'/auth.php';
 |--------------------------------------------------------------------------
 */
 Route::resource('/service',ServiceController::class);
+
+
 require __DIR__.'/auth.php';
