@@ -17,32 +17,50 @@
                             <tr>
                                 {{-- <th scope="col">SL</th> --}}
                                 <th scope="col">Product Name</th>
-                                <th scope="col">Product Bill Date</th>
-                                <th scope="col">Cost</th>
+                                <th scope="col">Product Type</th>
+                                <th scope="col">Bussiness Name</th>
+                                <th scope="col">Bussiness Addess</th>
+
+                                <th scope="col">Product Install Id</th>
+
+                                 <th scope="col">Product Bill Date</th>
+                                 <th scope="col">Refer By</th>
+                                 <th scope="col">Hosted By</th>
+                                 <th scope="col">Domain Provide</th>
+                                 <th scope="col">Note</th>
+                                 <th scope="col">Cost</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
+                        <tbody>
                             @foreach ($Services as $Service)
                                 <tr>
-                                    <td>{{$SL++}}</td>
+                                    {{-- <td>{{$SL++}}</td> --}}
                                     <td>
 
                                         <button style="border:0px; background:none;" data-bs-toggle="modal"
                                             data-bs-target="#client_service_show_modal" data-whatever="@mdo" class="ServiceShow"
                                             data-bs-original-title="" data-id="{{ $Service->id }}">
-                                            <a href="" class="text-decoration-underline border-0"> {{ $Service->ProductName }}</a>
+                                            <a href="/client/detail/" class="text-decoration-underline border-0"> {{ $Service->ProductName }}</a>
                                         </button>
+
                                     </td>
+                                    <td>{{  $Service->Type}}</td>
+                                    <td>{{ $Service->BussinessName}}</td>
+                                    <td>{{ $Service->BussinessAddess}}</td>
+                                    <td>{{ $Service->ProductInstallId}}</td>
                                     <td>
                                         {{date('d-m-Y', strtotime($Service->ProductBillDate))}}
                                     </td>
+                                    <td>{{ $Service->Name }}</td>
+                                    <td>{{ $Service->HostedBy }}</td>
+                                    <td>{{ $Service->Provide }}</td>
+                                    <td>{{ $Service->Note }}</td>
                                     <td>
                                         <span>OT_Cost: </span>{{ $Service->SoftwarePrice }} <br>
                                         <span>SLA_Type: </span>{{ $Service->Type }} <br>
                                         <span>SLA_Amount: </span>{{ $Service->SLAAmount }}
                                     </td>
-
                                     <td>
                                         <a href="/client/per-service/{{ $Service->id }}/delete" class="">
                                             <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
@@ -51,7 +69,7 @@
                                 </tr>
                             @endforeach
 
-                        </tbody> --}}
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -272,7 +290,7 @@
 
     </div>
 
-    
+
 
     {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
      <script>

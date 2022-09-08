@@ -15,7 +15,23 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('service.index');
+        $SLAs          = DB::table('servicelevels')->get();
+        $Refers        = DB::table('referreds')->get();
+        $Products      = DB::table('products')->get();
+        $Hosts         = DB::table('hosts')->get();
+        $Domains       = DB::table('domains')->get();
+        $Clients       = DB::table('clients')->get();
+        // $ClientDetails = DB::table('clients')->where('id',$id)->first();
+
+        $Services      = DB::table('services')
+        ->leftJoin('products','services.ProductName', '=', 'products.id')
+        ->leftJoin('servicelevels','services.SLAType', '=', 'servicelevels.id')
+        ->leftJoin('referreds','services.RefrredBy','=','referreds.id')
+        ->leftJoin('hosts','services.HostedBy','=','hosts.id')
+        ->leftJoin('domains','services.DomainProvide','=','domains.id')
+        ->select('services.*','products.ProductName','servicelevels.Type','referreds.Name','hosts.HostedBy','domains.Provide')
+        ->get();
+        return view('service.index',compact('SLAs','Refers','Products','Hosts','Domains','Services'))->with('SL',1);
     }
 
     /**

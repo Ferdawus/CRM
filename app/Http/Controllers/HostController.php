@@ -68,7 +68,8 @@ class HostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('hosts')->where('id',$id)->first();
+        json_encode($data);
     }
 
     /**
@@ -78,9 +79,14 @@ class HostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $Host                = array();
+        $Host['HostedBy']    = $request->HostedBy;
+        $Host['Description'] = $request->Description;
+
+        DB::table('hosts')->where('id',$request->id)->update($Host);
+        return redirect()->back()->with('message','Data added Successfully');
     }
 
     /**

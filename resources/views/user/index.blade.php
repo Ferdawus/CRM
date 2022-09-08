@@ -1,4 +1,6 @@
-
+@php
+    error_reporting(0);
+@endphp
 @extends('dashboard.inc.main')
 {{-- @extends('dashboard.inc.footer') --}}
 
@@ -25,17 +27,17 @@
                   <div class="card">
                       <div class="card-header" id="success-color">
                         <h5 id="title">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"> 
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User">
                                 <i class="fa-solid fa-circle-plus mr-2"></i>
                                 Add
-                            </button> 
+                            </button>
                               User List
                         </h5>
                       </div>
                       <div class="table-responsive">
                         <table class="table">
                           <thead>
-                          
+
                             <tr>
                               <th scope="col">SL</th>
                               <th scope="col">Name</th>
@@ -48,29 +50,29 @@
                           <tbody>
                             @foreach ($GetData as $Value)
                             <tr>
-                              
+
                                 <td>{{$SL++}}</td>
                                 <td>{{$Value->name}}</td>
                                 <td>{{$Value->email}}</td>
                                 <td>{{$Value->RoleName}}</td>
                                 <td>
                                   @if ($Value->Status)
-                                   <a href="{{ URL("/user/status/{$Value->id}/0") }}"><b class="text-success ">Active</b></a>      
-                                  @else 
+                                   <a href="{{ URL("/user/status/{$Value->id}/0") }}"><b class="text-success ">Active</b></a>
+                                  @else
                                     <a href="{{ URL("/user/status/{$Value->id}/1") }}"> <b class="text-danger">Deactive</b></a>
                                   @endif
                                 </td>
                                 <td>
-                                 
+
                                   <button style="border: 0px; backround:none;"  data-bs-toggle="modal" data-bs-target="#user_edit_btn" data-whatever="@mdo"   data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit User" class="UserEditBtn" data-id="{{ $Value->id }}" >
                                     <i class="icofont icofont-edit fs-5 text-secondary"></i>
                                   </button>
                                   <a href="/user/{{$Value->id}}/delete" class=""><i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i></a>
                                 </td>
-                            
+
                             </tr>
                             @endforeach
-                            
+
                           </tbody>
                         </table>
                       </div>
@@ -103,9 +105,9 @@
                                   </div>
                                 </div>
                                 <div class="mb-3 row">
-                                  <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm   
+                                  <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm
                                     Password:</label>
-                                  <div class="col-sm-9">  
+                                  <div class="col-sm-9">
                                     <input class="form-control" type="password" id="ConPassword" name="password_confirmation" placeholder="type user password">
                                   </div>
                                 </div>
@@ -140,7 +142,7 @@
                         </div>
                       </div>
                   </div>
-                </div> 
+                </div>
               </div>
 
               {{-- Edit user modal --}}
@@ -160,7 +162,7 @@
                             <input class="form-control" type="text" id="EditName" name="name" placeholder="type user name">
                           </div>
                         </div>
-                      
+
                       <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label" for="Email">Email:</label>
                         <div class="col-sm-9">
@@ -174,9 +176,9 @@
                         </div>
                       </div>
                       <div class="mb-3 row">
-                        <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm   
+                        <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm
                           Password:</label>
-                        <div class="col-sm-9">  
+                        <div class="col-sm-9">
                           <input class="form-control" type="password" id="EditConPassword" name="password_confirmation" placeholder="type user password">
                         </div>
                       </div>
@@ -207,7 +209,7 @@
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                         <button class="btn btn-primary" type="submit">Update Role</button>
                     </div>
-                
+
                     {{ Form::close() }}
                   </div>
                 </div>
@@ -220,10 +222,10 @@
 
                     <div class="card-header" id="success-color">
                       <h5 id="title">
-                          <button type="button" data-bs-toggle="modal" data-bs-target="#role_add_btn" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Role"> 
+                          <button type="button" data-bs-toggle="modal" data-bs-target="#role_add_btn" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Role">
                               <i class="fa-solid fa-circle-plus mr-2"></i>
                               Add
-                          </button> 
+                          </button>
                             Role List
                       </h5>
                     </div>
@@ -238,7 +240,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                  
+
                           @foreach ($Roles as $Role)
                             <tr>
                               {{-- <td>{{$SL++}}</td> --}}
@@ -255,11 +257,11 @@
                               </td>
                             </tr>
                           @endforeach
-                          
+
                         </tbody>
                       </table>
                     </div>
-          
+
                     {{-- insert modal --}}
                     <div class="modal fade" id="role_add_btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
@@ -277,14 +279,14 @@
                                 <div class="mb-3">
                                   <label class="col-form-label" for="Description">Description:</label>
                                   <textarea name="Description" class="form-control" id="" cols="10" rows="5"></textarea>
-                                  
+
                                 </div>
                           </div>
                           <div class="modal-footer">
                               <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                               <button class="btn btn-primary" type="submit">Add New Role</button>
                           </div>
-                      
+
                           {{ Form::close() }}
                         </div>
                       </div>
@@ -307,14 +309,14 @@
                                 <div class="mb-3">
                                   <label class="col-form-label" for="Description">Description:</label>
                                   <textarea name="Description" class="form-control" id="EditDescription" cols="10" rows="5"></textarea>
-                                  
+
                                 </div>
                           </div>
                           <div class="modal-footer">
                               <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                               <button class="btn btn-primary" type="submit">Update Role</button>
                           </div>
-                      
+
                           {{ Form::close() }}
                         </div>
                       </div>
@@ -370,7 +372,7 @@
                               <td>
                                 <div class="checkbox checkbox-dark m-squar">
                                   <input type="hidden" name="edit[client]" value="0">
-                                  <input id="ClientEdit" name="edit[client]" value="1" type="checkbox" @if($getEditData->Edit) checked @endif> 
+                                  <input id="ClientEdit" name="edit[client]" value="1" type="checkbox" @if($getEditData->Edit) checked @endif>
                                   <label for="ClientEdit">checked</label>
                                 </div>
                               </td>
@@ -442,7 +444,7 @@
                                 <div class="checkbox checkbox-dark m-squar">
                                   <input type="hidden" name="view[sla]" value="0" id="">
                                   <input id="SLA_View" name="view[sla]"  type="checkbox" @if ($getSLAData->View) checked @endif>
-                                  <label for="SLA_View">checked</label> 
+                                  <label for="SLA_View">checked</label>
                                 </div>
                               </td>
 
@@ -757,7 +759,7 @@
                       <button class="btn btn-primary" type="submit">Save</button>
                     </div>
                     {{ Form::close() }}
-              
+
                   </div>
                 </div>
               </div>
@@ -770,17 +772,17 @@
         <div class="card">
           <div class="card-header" id="success-color">
             <h5 id="title">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User"> 
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalfat" data-whatever="@mdo" class="btn btn-primary-light"  data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create User">
                     <i class="fa-solid fa-circle-plus mr-2"></i>
                     Add
-                </button> 
+                </button>
                   User List
             </h5>
           </div>
           <div class="table-responsive">
             <table class="table">
               <thead>
-               
+
                 <tr>
                   <th scope="col">SL</th>
                   <th scope="col">Name</th>
@@ -793,14 +795,14 @@
               <tbody>
                 @foreach ($Users as $User)
                 <tr>
-                  
+
                     <td>{{$SL++}}</td>
                     <td>{{$User->name}}</td>
                     <td>{{$User->email}}</td>
                     <td>{{$User->Role}}</td>
                     <td>
                       @if ($User->Status)
-                      <b class="text-success ">Active</b>      
+                      <b class="text-success ">Active</b>
                       @else <b class="text-danger">Deactive</b>
                       @endif
                     </td>
@@ -808,10 +810,10 @@
                       <a href="#" class="btn btn-pill btn-sm btn-outline-info btn-air-info">Edit</a>
                       <a href="#" class="btn btn-pill btn-sm btn-outline-secondary btn-air-secondary">Delete</a>
                     </td>
-                 
+
                 </tr>
                 @endforeach
-                
+
               </tbody>
             </table>
           </div>
@@ -844,9 +846,9 @@
                       </div>
                     </div>
                     <div class="mb-3 row">
-                      <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm   
+                      <label class="col-sm-3 col-form-label" for="ConfirmPassword">Confirm
                         Password:</label>
-                      <div class="col-sm-9">  
+                      <div class="col-sm-9">
                         <input class="form-control" type="password" name="password_confirmation" placeholder="type user password" ="">
                       </div>
                     </div>
@@ -888,7 +890,7 @@
     #success-color{
         background-color: #e3ebf2;
         padding: 8px  !important;
-        border-radius: 3px !important; 
+        border-radius: 3px !important;
     }
     #title{
         /* color: white; */
@@ -904,7 +906,7 @@
     $('.RoleEditBtn').on('click',function(e){
       e.preventDefault();
       var ID = $(this).attr('data-id');
-      
+
       $.ajax({
         type: "GET",
         url: "/roles/edit/"+ID,
@@ -917,11 +919,11 @@
          $('#EditDescription').val(data.Description);
         }
       });
-      
+
     });
     $('.UserEditBtn').on('click',function(e){
       e.preventDefault();
-      
+
       var ID = $(this).attr('data-id');
       $.ajax({
         type: "GET",
@@ -939,7 +941,7 @@
          $('#EditRole').val(data.Role);
         }
       });
-      
+
     });
   });
 </script>
@@ -947,7 +949,7 @@
 
 @section('header')
    <script>
-   
+
    </script>
 @endsection
 @section('footer')

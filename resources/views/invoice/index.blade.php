@@ -49,21 +49,34 @@
                                 <div class="container">
                                     <h1 class="fs-4 text-info">INVOICE</h1>
                                     <div class="row g-4">
+                                        <div class="col-md-2  mb-3">
 
-                                        <div class="col-md-2">
-                                            <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Date">
+                                            <label class="col-form-label pt-0 text-left" for="Client"> Client:</label>
+                                            <select name="ProductType" class="form-select" id="Client">
+                                                <option value="" selected>Select Client....</option>
+                                                @foreach ($Clients as $Client)
+                                                    <option value="{{ $Client->id }}">
+                                                        {{ $Client->Client }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 mb-3">
+                                            <label for="Date" class="col-form-label pt-0">Invoice Date:</label>
+                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Date">
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="Invoice" class="col-form-label pt-0">Invoice #:</label>
                                             <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Invoice">
                                         </div>
-                                        <div class="col-md-2">
-                                            <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Client ID">
+
+                                        <div class="col-md-3">
+                                            <label for="PurchaseOrderDate" class="col-form-label pt-0">Purchase Order Date :</label>
+                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Purchase Order Date">
                                         </div>
                                         <div class="col-md-3">
-                                            <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Purchase Order Date">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input class="form-control" style="border-color:#CED4DA;" type="text" placeholder="Payment Due by">
+                                            <label for="PaymentDueby" class="col-form-label pt-0">Payment Due by:</label>
+                                            <input class="form-control" style="border-color:#CED4DA;" type="date" placeholder="Payment Due by">
                                         </div>
 
                                     </div>
@@ -73,7 +86,15 @@
                                             <div class="card-body">
                                                 <div class="row" id="ItemArea">
                                                     <div class="col-md-2">
-                                                        <input type="text" name="ItemName[]" class="form-control"placeholder='Item Name' required>
+                                                        <select name="ProductType" class="form-select ItemShowProduct" id="Item" name="ItemName[]">
+                                                            <option value="" selected>Select Item....</option>
+                                                            @foreach ($Items as $Item)
+                                                                <option value="{{ $Item->id }}">
+                                                                    {{ $Item->ProductName }}</option>
+                                                            @endforeach
+
+                                                        </select>
+
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
@@ -82,10 +103,10 @@
                                                         <input type="number"name="ItemQty[]" class="form-control" placeholder="Qty" required>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <input type="number" name="ItemUnitPrice[]" class="form-control"placeholder='UnitPrice' required>
+                                                        <input type="number" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <input type="number" name="ItemPrice[]" class="form-control"placeholder='LineTotal' required>
+                                                        <input type="number" name="ItemPrice[]" class="form-control"placeholder='Line Total' required>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
@@ -96,6 +117,25 @@
                                     </div>
 
                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 col-form-label">Account Number:</label>
+                                                <div class="col-sm-6">
+                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 col-form-label">Payment Method:</label>
+                                                <div class="col-sm-6">
+                                                  <select name="" id="" class="form-control"  style="border-color:#CED4DA;">
+                                                    <option value="">Choose ....</option>
+                                                    <option value="">Bekhas</option>
+                                                    <option value="">Nogod</option>
+                                                    <option value="">Islamic Bank</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Sub-Total:</label>
@@ -128,25 +168,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-4 col-form-label">Account Number:</label>
-                                                <div class="col-sm-6">
-                                                  <input style="border-color:#CED4DA;" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-sm-4 col-form-label">Payment Method:</label>
-                                                <div class="col-sm-6">
-                                                  <select name="" id="" class="form-control"  style="border-color:#CED4DA;">
-                                                    <option value="">Choose ....</option>
-                                                    <option value="">Bekhas</option>
-                                                    <option value="">Nogod</option>
-                                                    <option value="">Islamic Bank</option>
-                                                  </select>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                     <hr style="background-color:#CED4DA;">
@@ -185,8 +207,12 @@
         $(document).ready(function(){
             $('#AddItemBtn').on('click',function(e){
                 e.preventDefault();
-                // console.log('hdj');
-                $('#ItemArea').append('<div class="row mt-3"><div class="col-md-2"><input type="text" name="ItemName[]" class="form-control" placeholder="Item Name"></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" name="ItemPrice[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>');
+                // console.log('hdj')
+                // var option ="<option>shjsah</option>";
+                var options = $('.ItemShowProduct').html();
+                // console.log(options);
+
+                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select name="ProductType" class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" name="ItemPrice[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
             });
             $('body').on('click','#RemoveItemBtn',function(e){
                 e.preventDefault();

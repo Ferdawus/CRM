@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvioceController extends Controller
 {
@@ -13,7 +14,9 @@ class InvioceController extends Controller
      */
     public function index()
     {
-        return view('invoice.index');
+        $Clients = DB::table('clients')->get();
+        $Items = DB::table('products')->get();
+        return view('invoice.index',compact('Clients','Items'));
     }
 
     /**

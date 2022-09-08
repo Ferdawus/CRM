@@ -55,6 +55,7 @@
 <script src="{{ asset('assets') }}/js/datepicker/date-picker/datepicker.js"></script>
 <script src="{{ asset('assets') }}/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="{{ asset('assets') }}/js/datepicker/date-picker/datepicker.custom.js"></script>
+<script src="{{ asset('assets') }}/js/datatable/datatables/jquery.dataTables.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -88,7 +89,7 @@
         }
         toastr.info("{{ session('info') }}");
     @endif
-   
+
     @if (Session::has('warning'))
         toastr.options = {
             "closeButton": true,

@@ -345,7 +345,6 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="col-form-label text-left" for="ProductType">Product Type :</label>
-                                            {{-- <input class="form-control" type="text" name="ProductType"  required> --}}
                                             <select name="ProductType" class="form-select" id="ShowProductType">
                                                 <option value="" selected>Choose type....</option>
                                                 @foreach ($Products as $Product)
