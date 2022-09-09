@@ -21,15 +21,38 @@
                     <table class="table table-responsive table-hover table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">SL</th>
-                                <th scope="col">HostedBy</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Action</th>
+                                {{-- <th scope="col">SL</th> --}}
+                                <th scope="col">Client</th>
+                                <th scope="col">Invoice Date</th>
+                                <th scope="col">Invoice Number</th>
+                                <th scope="col">Purchase Order Date</th>
+                                <th scope="col">Payment Due Date</th>
+                                <th scope="col">Payment Method</th>
+                                <th scope="col">SubTotal</th>
+                                <th scope="col">Discount </th>
+                                <th scope="col">Total </th>
+                                {{-- <th scope="col">Action</th> --}}
 
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($Invoices as $Invoice)
+                                <tr>
+                                    {{-- <td></td> --}}
+                                    <td>{{$Invoice->ClientName}}</td>
+                                    <td>{{date('d-m-Y', strtotime($Invoice->InvoiceDate))}}</td>
+                                    <td>{{$Invoice->InvoiceName}}</td>
 
+                                    <td>{{date('d-m-Y', strtotime($Invoice->PurchaseOrderDate))}}</td>
+                                    <td>{{date('d-m-Y', strtotime($Invoice->PaymentDueDate))}}</td>
+                                    <td>{{$Invoice->PaymentMethod}}</td>
+                                    <td>{{$Invoice->SubTotal}}</td>
+                                    <td>{{$Invoice->Discount}}</td>
+                                    <td>{{$Invoice->Total}}</td>
+
+
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -141,19 +164,19 @@
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Sub-Total:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" name="SubTotal" class="form-control" type="number">
+                                                  <input style="border-color:#CED4DA;" id="SubTotal" name="SubTotal" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Discount:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" name="Discount" class="form-control" type="number">
+                                                  <input style="border-color:#CED4DA;" id="Discount" name="Discount" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">TOTAL:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" name="Total" class="form-control" type="number">
+                                                  <input style="border-color:#CED4DA;" id="Total" name="Total" class="form-control" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -220,6 +243,20 @@
 
                 $(this).closest('.row').remove();
             });
+            $('#SubTotal').on('keyup',function(){
+                calculate();
+            });
+            $('#Discount').on('keyup',function(){
+                calculate();
+            });
+            function calculate()
+            {
+                var SubTotal = parseInt($('#SubTotal').val());
+                var Discount = parseInt($('#Discount').val());
+                // console.log(Discount + 1);
+                var Total = SubTotal + Discount
+                $('#Total').val(Total);
+            }
         });
     </script>
 @endsection

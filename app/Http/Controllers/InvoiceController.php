@@ -17,8 +17,9 @@ class InvoiceController extends Controller
     public function index()
     {
         $Clients = DB::table('clients')->get();
-        $Items = DB::table('products')->get();
-        return view('invoice.index',compact('Clients','Items'));
+        $Items   = DB::table('products')->get();
+        $Invoices = DB::table('invoices')->get();
+        return view('invoice.index',compact('Clients','Items','Invoices'));
     }
 
     /**
