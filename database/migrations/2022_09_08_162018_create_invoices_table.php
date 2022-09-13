@@ -25,8 +25,8 @@ return new class extends Migration
             $table->decimal('SubTotal');
             $table->decimal('Discount');
             $table->decimal('Total');
-            $table->decimal('Advance');
-            $table->decimal('NetPayable');
+            $table->decimal('Amount');
+            $table->decimal('Due')->nullable();
             $table->timestamps();
         });
     }

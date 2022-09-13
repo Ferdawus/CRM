@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,10 @@ class InvoiceController extends Controller
     {
         $Clients = DB::table('clients')->get();
         $Items   = DB::table('products')->get();
-        $Invoices = DB::table('invoices')->get();
+        $Invoices = DB::table('invoices')
+        ->leftJoin('clients','invoices.ClientName','=','clients.id')
+        ->select('invoices.*','clients.Client')
+        ->get();
         return view('invoice.index',compact('Clients','Items','Invoices'));
     }
 
@@ -59,8 +63,17 @@ class InvoiceController extends Controller
 
 
         }
-        return'Invoice Added SuccessFully !';
-
+        // dd($request->id );
+        $Transaction                         = new Transaction();
+        $Transaction->TransactionId          = rand(1111111,999999);
+        $Transaction->ClientId               = $Invoice->ClientName;
+        $Transaction->invoiceId              = $Invoice->id;
+        $Transaction->TransactionDate	     = $Invoice->InvoiceDate;
+        $Transaction->PymentMethod           = $Invoice->PymentMethod;
+        $Transaction->AccountNumber	         = $Invoice->AccountNumber;
+        $Transaction->Amount	             = $Invoice->Amount;
+        $Transaction->save();
+        return redirect()->back()->with('message','Data added Successfully');
     }
 
     /**
@@ -105,6 +118,27 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('invoices')->where('id',$id)->delete();
+        DB::table('invoice_items')->where('InvoiceId',$id)->delete();
+        DB::table('transactions')->where('InvoiceId',$id)->delete();
+        return redirect()->back()->with('message','Data deleted Successfully');
     }
+    public function template($id)
+    {
+
+        $dataShowInvoice     = DB::table('invoices')->where('id',$id)->first();
+        $dataShowInvoiceItem = DB::table('invoice_items')
+        ->leftJoin('products','invoice_items.ProductItem','products.id')
+        ->select('invoice_items.*','products.ProductType','products.ProductName')
+        ->where('invoice_items.id',$id)->first();
+
+        $dataShowClient      = DB::table('invoices')
+        ->leftjoin('clients','invoices.ClientName','clients.id')
+        ->select('invoices.*','clients.id','clients.Client','clients.ClientId','clients.ContactNumber','clients.Country','clients.District','clients.Address')
+        ->where('invoices.id',$id)
+        ->first();
+
+        return view('invoice.template',compact('dataShowInvoice','dataShowInvoiceItem','dataShowClient'));
+    }
+    
 }

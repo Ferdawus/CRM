@@ -49,31 +49,6 @@
 
                                         <div class="modal-body">
 
-                                            <fieldset>
-                                                <legend> Bussiness-Information</legend>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label text-left" for="BussinessName">Bussiness Name:</label>
-                                                            <input class="form-control" type="text" name="BussinessName"  required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label" for="BussinessAddess">Bussiness Address:</label>
-                                                            <input class="form-control" type="text" name="BussinessAddess" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label" for="OtherBussinessAddess">Others Bussiness Address</label>
-                                                            <textarea name="OtherBussinessAddess" type="text" class="form-control" id="" cols="70" rows="4"></textarea>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-
 
                                             <fieldset>
                                                 <legend> Product-Information</legend>
@@ -121,12 +96,7 @@
                                                             <input class="form-control" type="date" name="ProductInstallDate" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label" for="ProductBillDate">Product Bill Date:</label>
-                                                            <input class="form-control" type="date" name="ProductBillDate" required>
-                                                        </div>
-                                                    </div>
+
 
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
@@ -170,10 +140,10 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="mb-3">
                                                         <label class="col-form-label" for="ProductNote">Product Note:</label>
-                                                            <textarea name="Note"  placeholder="hak" class="form-control textarea" id="" cols="30" rows="4"
+                                                            <textarea name="Note"  placeholder="{{'procduct url... product user name...product password...'}}" class="form-control textarea" id="" cols="30" rows="4"
                                                             ></textarea>
                                                         </div>
                                                     </div>
@@ -211,9 +181,41 @@
                                                             <input class="form-control" type="number" name="SLAAmount" required>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="ProductBillDate">Product Bill Date:</label>
+                                                            <input class="form-control" type="date" name="ProductBillDate" required>
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </fieldset>
+
+                                            <fieldset>
+                                                <legend> Bussiness-Information</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label text-left" for="BussinessName">Bussiness Name:</label>
+                                                            <input class="form-control" type="text" name="BussinessName"  required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="BussinessAddess">Bussiness Address:</label>
+                                                            <input class="form-control" type="text" name="BussinessAddess" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label" for="OtherBussinessAddess">Others Bussiness Address</label>
+                                                            <textarea name="OtherBussinessAddess" type="text" class="form-control" id="" cols="70" rows="4"></textarea>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+
 
 
                                         </div>

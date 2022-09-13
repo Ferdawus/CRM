@@ -57,6 +57,7 @@ class ClientController extends Controller
     {
         $Client                     = array();
         $Client['Client']           = $request->Client;
+        $Client['ClientId']           = $request->ClientId;
         $Client['ContactNumber']    = $request->ContactNumber;
         $Client['AltnativeContact'] = $request->AltnativeContact;
         $Client['Country']          = $request->Country;
@@ -111,6 +112,7 @@ class ClientController extends Controller
     {
         $Client = array();
         $Client['Client']           = $request->Client;
+        $Client['ClientId']           = $request->ClientId;
         $Client['ContactNumber']    = $request->ContactNumber;
         $Client['AltnativeContact'] = $request->AltnativeContact;
         $Client['Country']          = $request->Country;

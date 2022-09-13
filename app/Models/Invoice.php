@@ -20,8 +20,8 @@ class Invoice extends Model
         'SubTotal',
         'Discount',
         'Total',
-        'Advance',
-        'NetPayable',
+        'Amount',
+        'Due',
         'created_at',
         'updated_at'
     ];

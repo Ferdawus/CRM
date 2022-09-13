@@ -68,8 +68,9 @@ class HostController extends Controller
      */
     public function edit($id)
     {
-        $data = DB::table('hosts')->where('id',$id)->first();
-        json_encode($data);
+        // dd('hello');
+       $data = DB::table('hosts')->where('id',$id)->first();
+       return json_encode($data);
     }
 
     /**
@@ -86,7 +87,7 @@ class HostController extends Controller
         $Host['Description'] = $request->Description;
 
         DB::table('hosts')->where('id',$request->id)->update($Host);
-        return redirect()->back()->with('message','Data added Successfully');
+        return redirect()->back()->with('message','Data update Successfully');
     }
 
     /**

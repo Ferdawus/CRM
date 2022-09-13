@@ -48,7 +48,7 @@
           </div>
 
           {{-- insert modal --}}
-          <div class="modal fade" id="host-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="#host-insert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -59,17 +59,47 @@
                   {{ Form::open(['url' => '/host','method'=>'POST','class'=>'theme-form','files'=> true]) }}
                       <div class="mb-3">
                         <label class="col-form-label" for="HostedBy">Hosted by:</label>
-                        <input class="form-control" type="text" name="HostedBy"  required>
+                        <input class="form-control" type="text"  name="HostedBy"  required>
                       </div>
                       <div class="mb-3">
                         <label class="col-form-label" for="Description">Description:</label>
-                        <textarea name="Description" class="form-control" id="" cols="10" rows="5"></textarea>
+                        <textarea name="Description"  class="form-control"  cols="10" rows="5"></textarea>
 
                       </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-primary" type="submit">Add New Host </button>
+                </div>
+
+                {{ Form::close() }}
+              </div>
+            </div>
+          </div>
+          {{-- edit modal --}}
+          <div class="modal fade" id="host-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel2">Update Host </h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  {{ Form::open(['url' => '/host/update','method'=>'POST','id'=>'HostEditForm','class'=>'theme-form','files'=> true]) }}
+                        <input type="hidden" name="id" id="IdEdit">
+                      <div class="mb-3">
+                        <label class="col-form-label" for="HostedBy">Hosted by:</label>
+                        <input class="form-control" type="text" id="EditHost" name="HostedBy"  required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="col-form-label" for="Description">Description:</label>
+                        <textarea name="Description" class="form-control"  id="EditDescription" cols="10" rows="5"></textarea>
+
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Update Host </button>
                 </div>
 
                 {{ Form::close() }}
@@ -91,6 +121,28 @@
 
     }
   </style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('.EditBtn').on('click', function(e) {
+              e.preventDefault();
+              var ID = $(this).attr('data-id');
+
+              $.ajax({
+                  type: "get",
+                  url: "/host/edit/"+ID,
+                  data: $('#HostEditForm').serialize(),
+                  dataType: "JSON",
+                  success: function(data) {
+                    console.log(data);
+                      $('#IdEdit').attr('value',data.id);
+                      $('#EditHost').val(data.HostedBy);
+                      $('#EditDescription').val(data.Description);
+                  }
+              });
+          });
+      });
+  </script>
 @endsection
 
 @section('header')

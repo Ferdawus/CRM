@@ -91,7 +91,7 @@ class DomainController extends Controller
         // dd($request->id);
         $update = DB::table('domains')->where('id',$request->id)->update($domain);
         if ($update) {
-            return redirect()->back()->with('message','Data Update Succesfully');
+            return redirect()->back()->with('message','Data updated Successfully');
         }else{
             return "not updated";
         }

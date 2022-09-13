@@ -123,15 +123,15 @@
                                     <td id="ShowRefrredBy"></td>
                                     <td><b>Address</b></td>
                                     <td id="ShowAddress"></td>
-                                   
+
                                 </tr>
                                 <tr>
                                     <td><b>OthersInf</b></td>
                                     <td id="ShowOthersInf"></td>
-                                   
-                                   
+
+
                                 </tr>
-                               
+
                             </tbody>
                         </table>
                      </div>
@@ -141,13 +141,13 @@
                          <button class="btn btn-primary" type="submit">Add New Client</button>
                      </div>
                  </div>
-               
+
              </div>
             </div>
             {{-- insert modal --}}
             <div class="modal fade" id="client_insert_modal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel2">Add New Client</h5>
@@ -157,14 +157,17 @@
                         <div class="modal-body">
                             {{ Form::open(['url' => '/client', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
                             <div class="row">
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
                                     <label class="col-form-label" for="Client">Client Name:</label>
                                     <input class="form-control" type="text" name="Client" required>
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
+                                    <label class="col-form-label" for="ClientId">Client ID:</label>
+                                    <input class="form-control" type="text" value="CRMWSZ-" name="ClientId" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label class="col-form-label" for="ContactNumber">Contact Number:</label>
-                                    <input class="form-control" value="" type="text" name="ContactNumber"
-                                        required>
+                                    <input class="form-control" value="" type="text" name="ContactNumber"required>
                                 </div>
                             </div>
 
@@ -256,11 +259,11 @@
                     {{ Form::close() }}
                 </div>
             </div>
-           
+
             {{-- update modal --}}
             <div class="modal fade" id="client_edit_modal" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel2">Update Client</h5>
@@ -271,11 +274,15 @@
                             {{ Form::open(['url' => '/client/update', 'method' => 'POST', 'class' => 'theme-form', 'id' => 'EditClientForm', 'files' => true]) }}
                             <input type="hidden" name="id" id="clientId">
                             <div class="row">
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
                                     <label class="col-form-label" for="Client">Client Name:</label>
                                     <input class="form-control" type="text" id="EditClient" name="Client" required>
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
+                                    <label class="col-form-label" for="ClientId">Client ID:</label>
+                                    <input class="form-control" type="text" id="EditClientId" value="CRMWSZ-" name="ClientId" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label class="col-form-label" for="ContactNumber">Contact Number:</label>
                                     <input class="form-control" value="dfsf" id="EditContactNum" type="text"
                                         name="ContactNumber" required>
@@ -399,6 +406,7 @@
                         console.log(myData.id) --}}
                         $('#clientId').attr('value', myData.id);
                         $('#EditClient').val(myData.Client);
+                        $('#EditClientId').val(myData.ClientId);
                         $('#EditContactNum').val(myData.ContactNumber);
                         $('#EditAltnativeContact').val(myData.ContactNumber);
                         $('#EditCountry').val(myData.Country);

@@ -1,3 +1,6 @@
+@php
+    use App\Http\Controllers\FuntionController;
+@endphp
 @extends('dashboard.inc.main')
 {{-- @extends('dashboard.inc.footer') --}}
 
@@ -31,7 +34,8 @@
                                 <th scope="col">SubTotal</th>
                                 <th scope="col">Discount </th>
                                 <th scope="col">Total </th>
-                                {{-- <th scope="col">Action</th> --}}
+                                <th scope="col">Due </th>
+                                <th scope="col">Action</th>
 
                             </tr>
                         </thead>
@@ -39,7 +43,7 @@
                             @foreach ($Invoices as $Invoice)
                                 <tr>
                                     {{-- <td></td> --}}
-                                    <td>{{$Invoice->ClientName}}</td>
+                                    <td>{{$Invoice->Client}}</td>
                                     <td>{{date('d-m-Y', strtotime($Invoice->InvoiceDate))}}</td>
                                     <td>{{$Invoice->InvoiceName}}</td>
 
@@ -49,8 +53,26 @@
                                     <td>{{$Invoice->SubTotal}}</td>
                                     <td>{{$Invoice->Discount}}</td>
                                     <td>{{$Invoice->Total}}</td>
+                                    <td>{{$Invoice->Due}}</td>
+
+                                    <td class="d-flex">
+                                        <a href="/invoice/template/{{ $Invoice->id }}" style="border:0px; background:none" id="ShowBtn">
+                                            <i class="icofont icofont-eye fs-5 me-2"></i>
+                                        </a>
 
 
+                                        <button style="border:0px; background:none" id="EditBtn" data-bs-toggle="modal"
+                                            data-bs-target="#invoice_edit_modal" data-whatever="@mdo" class="EditBtn"
+                                            data-bs-original-title="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Create User" data-id="{{$Invoice->id}}">
+                                            <i class="icofont icofont-edit fs-5 text-secondary"></i>
+                                        </button>
+
+                                        <a href="/invoice/{{ $Invoice->id }}/delete" class="DeleteBtn">
+                                            <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
+                                        </a>
+
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -64,6 +86,186 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel2">Add New Invoice </h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ Form::open(['url' => '/invoice', 'method' => 'POST', 'class' => 'theme-form', 'files' => true]) }}
+                                <div class="container">
+                                    <h1 class="fs-4 text-info">INVOICE</h1>
+                                    <div class="row g-4">
+                                        <div class="col-md-2  mb-3">
+
+                                            <label class="col-form-label pt-0 text-left" for="ClientName"> Client:</label>
+                                            <select name="ClientName" class="form-select" id="Client">
+                                                <option value="" selected>Select Client....</option>
+                                                @foreach ($Clients as $Client)
+                                                    <option value="{{ $Client->id }}">
+                                                        {{ $Client->Client }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="InvoiceDate" class="col-form-label pt-0">Invoice Date:</label>
+                                            <input class="form-control" name="InvoiceDate" style="border-color:#CED4DA;" type="date" value="{{ date('Y-m-d') }}">
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="InvoiceName" class="col-form-label pt-0">Invoice #:</label>
+                                            <input class="form-control" name="InvoiceName" style="border-color:#CED4DA;" type="text" placeholder="Invoice" value="{{ FuntionController::UniqueCode() }}" >
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="PurchaseOrderDate" class="col-form-label pt-0">Purchase Order Date :</label>
+                                            <input class="form-control"  name="PurchaseOrderDate" style="border-color:#CED4DA;" type="date" placeholder="Purchase Order Date">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="PaymentDueDate" class="col-form-label pt-0">Payment Due by:</label>
+                                            <input class="form-control"  name="PaymentDueDate" style="border-color:#CED4DA;" type="date" placeholder="Payment Due by">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row  mt-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row" id="ItemArea">
+                                                    <div class="col-md-2">
+                                                        <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
+                                                            <option value="" selected>Select Item....</option>
+                                                            @foreach ($Items as $Item)
+                                                                <option value="{{ $Item->id }}">
+                                                                    {{ $Item->ProductName }}</option>
+                                                            @endforeach
+
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="row mt-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row" id="ItemArea">
+
+                                                    <div class="col-md-3">
+                                                        <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 col-form-label">Payment Method:</label>
+                                                <div class="col-sm-6">
+                                                  <select name="PaymentMethod" id="" class="form-control"  style="border-color:#CED4DA;">
+                                                    <option value="">Choose ....</option>
+                                                    <option value="Chash">Cash</option>
+                                                    <option value="Bkhas">Bkhas</option>
+                                                    <option value="Nogod">Nogod</option>
+                                                    <option value="Bank">Bank</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 col-form-label">Account Number:</label>
+                                                <div class="col-sm-6">
+                                                  <input style="border-color:#CED4DA;" name="AccountNumber" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 col-form-label">Amount:</label>
+                                                <div class="col-sm-6">
+                                                  <input style="border-color:#CED4DA;" id="Amount" name="Amount" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label">Sub-Total:</label>
+                                                <div class="col-sm-5">
+                                                  <input style="border-color:#CED4DA;" id="SubTotal" name="SubTotal" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label">Discount:</label>
+                                                <div class="col-sm-5">
+                                                  <input style="border-color:#CED4DA;" id="Discount" name="Discount" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label">TOTAL:</label>
+                                                <div class="col-sm-5">
+                                                  <input style="border-color:#CED4DA;" id="Total" name="Total" class="form-control" type="number">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-3 col-form-label">Due:</label>
+                                                <div class="col-sm-5">
+                                                  <input style="border-color:#CED4DA;" id="Due" name="Due" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr style="background-color:#CED4DA;">
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit">Add New Invoice </button>
+                            </div>
+
+                            {{ Form::close() }}
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Edit modal --}}
+                <div class="modal fade" id="invoice_edit_modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2"> Update Invoice </h5>
                                 <button class="btn-close" type="button" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -236,26 +438,72 @@
                 var options = $('.ItemShowProduct').html();
                 // console.log(options);
 
-                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
+                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
+                // console.log(ItemArea);
             });
             $('body').on('click','#RemoveItemBtn',function(e){
                 e.preventDefault();
 
                 $(this).closest('.row').remove();
             });
+
+            $('.EditBtn').on('click',function(e){
+                e.preventDefault();
+                var ID = $(this).attr('data-id');
+
+
+
+            })
+            // due
             $('#SubTotal').on('keyup',function(){
                 calculate();
             });
             $('#Discount').on('keyup',function(){
                 calculate();
             });
+            // total
+            $('#Amount').on('keyup',function(){
+                dueCalculate();
+            });
+            $('#Total').on('keyup',function(){
+                dueCalculate();
+            });
+            // line total
+            $('#Qty').on('keyup',function(){
+                LineTotal();
+            });
+            $('#UnitPrice').on('keyup',function(){
+                LineTotal();
+            });
+
             function calculate()
             {
                 var SubTotal = parseInt($('#SubTotal').val());
                 var Discount = parseInt($('#Discount').val());
+                var _SubTotal = SubTotal ? SubTotal : 0
+                var _Discount = Discount ? Discount : 0
+
                 // console.log(Discount + 1);
-                var Total = SubTotal + Discount
+                var Total =   _SubTotal - _Discount
                 $('#Total').val(Total);
+            }
+            function dueCalculate()
+            {
+                var Amount = parseInt($('#Amount').val());
+
+                var Total = parseInt($('#Total').val());
+                var _Amount = Amount ? Amount : 0
+                var _Total = Total ? Total : 0
+
+                var Due = _Total - _Amount
+                $('#Due').val(Due);
+            }
+            function LineTotal()
+            {
+                var Qty       = parseInt($('#Qty').val());
+                var UnitPrice = parseInt($('#UnitPrice').val());
+                var LineTotal = Qty * UnitPrice
+                $('#LineTotal').val(LineTotal);
             }
         });
     </script>

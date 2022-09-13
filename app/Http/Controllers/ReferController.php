@@ -68,7 +68,8 @@ class ReferController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('referreds')->where('id',$id)->first();
+        return json_encode($data);
     }
 
     /**
@@ -78,9 +79,18 @@ class ReferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $Refer                = array();
+        $Refer['Name']        = $request->Name;
+        $Refer['Description'] = $request->Description;
+        $update = DB::table('referreds')->where('id',$request->id)->update($Refer);
+        if ($update) {
+            return redirect()->back()->with('message','Data updated Successfully');
+        }else{
+            return "not updated";
+        }
     }
 
     /**

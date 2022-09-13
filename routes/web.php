@@ -79,6 +79,8 @@ Route::resource('client',ClientController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/refer/{id}/delete', [ReferController::class, 'destroy']);
+Route::get('/refer/edit/{id}',[ReferController::class,'edit']);
+Route::post('/refer/update',[ReferController::class,'update']);
 Route::resource('refer',ReferController::class);
 /*
 |--------------------------------------------------------------------------
@@ -112,7 +114,10 @@ Route::resource('/sla/service',SLAController::class);
 |HostedBy Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/host/{id}/delete', [HostController::class, 'destroy']);
+Route::get('/host/edit/{id}',[HostController::class,'edit']);
+Route::post('/host/update',[HostController::class,'update']);
 Route::resource('/host',HostController::class);
 /*
 |--------------------------------------------------------------------------
@@ -128,8 +133,10 @@ Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
 |Invioce Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/invoice/{id}/delete',[InvoiceController::class,'destroy']);
+Route::get('/invoice/template/{id}',[InvoiceController::class,'template']);
 Route::resource('/invoice',InvoiceController::class);
-require __DIR__.'/auth.php';
+
 /*
 |--------------------------------------------------------------------------
 |All Service Routes
