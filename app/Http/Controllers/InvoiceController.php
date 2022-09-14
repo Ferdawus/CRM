@@ -7,6 +7,7 @@ use App\Models\InvoiceItem;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -54,7 +55,7 @@ class InvoiceController extends Controller
             $InvoiceItem              = new InvoiceItem();
             $InvoiceItem->invoiceId   = $Invoice->id;
             $InvoiceItem->ProductItem = $request->ItemName[$i];
-            $InvoiceItem->Description = $request->ItemDescription[$i];
+            // $InvoiceItem->Description = $request->ItemDescription[$i];
             $InvoiceItem->Qty         = $request->ItemQty[$i];
             $InvoiceItem->UnitPrice	  = $request->ItemUnitPrice[$i];
             $InvoiceItem->LineTotal   = $request->ItemLineTotal[$i];
@@ -74,6 +75,7 @@ class InvoiceController extends Controller
         $Transaction->Amount	             = $Invoice->Amount;
         $Transaction->save();
         return redirect()->back()->with('message','Data added Successfully');
+        // return view('invoice.template',compact('Invoice','InvoiceItem','Transaction'));
     }
 
     /**
@@ -140,5 +142,6 @@ class InvoiceController extends Controller
 
         return view('invoice.template',compact('dataShowInvoice','dataShowInvoiceItem','dataShowClient'));
     }
-    
+
+
 }

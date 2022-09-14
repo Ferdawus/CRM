@@ -71,6 +71,7 @@ Route::get('/client/show/{id}', [ClientController::class, 'show']);
 Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client/update',[ClientController::class,'update']);
 Route::get('/client/{id}/delete', [ClientController::class, 'destroy']);
+Route::get('/client/information/{id}',[ClientController::class,'ClientInformation']);
 Route::resource('client',ClientController::class);
 
 /*
@@ -128,6 +129,8 @@ Route::get('/service/client/product/{id}', [ServiceController::class,'ClientServ
 Route::post('/service/client/product/update', [ServiceController::class,'ClientServiceUpdate']);
 Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
 
+Route::get('/client/per-service/{ClientId}', [ServiceController::class,'getServicesByClientId']);
+
 /*
 |--------------------------------------------------------------------------
 |Invioce Routes
@@ -135,6 +138,7 @@ Route::post('/service/insert/{ClientId}', [ServiceController::class,'store']);
 */
 Route::get('/invoice/{id}/delete',[InvoiceController::class,'destroy']);
 Route::get('/invoice/template/{id}',[InvoiceController::class,'template']);
+Route::get('/invoice/pdf/generate/', [InvoiceController::class, 'generatePDF'])->name('pdf.generate');
 Route::resource('/invoice',InvoiceController::class);
 
 /*

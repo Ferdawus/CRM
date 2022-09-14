@@ -131,7 +131,7 @@
                                     <hr class="bg-info">
                                     <b>TOTAL: <span style="margin-left: 220px"> {{ $dataShowInvoice->Total }}</b> </span> <br>
                                     Amount <span style="margin-left: 215px">{{ $dataShowInvoice->Amount }}</span> <br>
-                                    Due <span style="margin-left: 17.5em"> {{ $dataShowInvoice->	Due }}</span>
+                                    Due <span style="margin-left: 17.5em"> {{ $dataShowInvoice->Due }}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -139,6 +139,9 @@
                 </div>
            </div>
 
+    </div>
+    <div class="text-center pdf-btn">
+        <a href="{{ route('pdf.generate') }}" class="btn btn-primary">Generate PDF</a>
     </div>
 
     </div>

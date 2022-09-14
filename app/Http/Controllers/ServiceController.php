@@ -170,4 +170,25 @@ class ServiceController extends Controller
         return redirect()->back()->with('message','Data Update Succesfully');
 
     }
+    public function getServicesByClientId($ClientId)
+    {
+
+        $getServicesByClientIds =  DB::table('services')
+        ->leftJoin('products','services.ProductName', '=', 'products.id')
+        ->select('products.id','products.ProductName')
+        ->where('ClientId',$ClientId)->get();
+        $options = "<option value=''>Select Item....</option>";
+
+        foreach ($getServicesByClientIds as $getServicesByClientId) {
+            $Id = $getServicesByClientId->id;
+            $Product = $getServicesByClientId->ProductName;
+            $options .= "<option value='$Id'>$Product</option>";
+        }
+
+        return json_encode($options);
+        // echo "<pre>";
+        // print_r($getServicesByClientId);
+
+        // return $getServicesByClientId;
+    }
 }

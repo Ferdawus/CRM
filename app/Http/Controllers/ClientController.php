@@ -178,4 +178,13 @@ class ClientController extends Controller
         $ClientService = DB::table('services')->where('id',$id)->delete();
         return redirect()->back();
     }
+    public function ClientInformation($id)
+    {
+        // echo "ClientInformation";
+        // echo $id;
+
+        $ClientInformation = DB::table('clients')->where('id',$id)->get();
+        echo "<pre>";
+        print_r($ClientInformation);
+    }
 }

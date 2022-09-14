@@ -97,7 +97,7 @@
                                         <div class="col-md-2  mb-3">
 
                                             <label class="col-form-label pt-0 text-left" for="ClientName"> Client:</label>
-                                            <select name="ClientName" class="form-select" id="Client">
+                                            <select name="ClientName" class="form-select ClientItemSelect" id="Client">
                                                 <option value="" selected>Select Client....</option>
                                                 @foreach ($Clients as $Client)
                                                     <option value="{{ $Client->id }}">
@@ -132,18 +132,18 @@
                                                 <div class="row" id="ItemArea">
                                                     <div class="col-md-2">
                                                         <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
-                                                            <option value="" selected>Select Item....</option>
-                                                            @foreach ($Items as $Item)
+                                                            <option value="">Select Item....</option>
+                                                            {{-- @foreach ($Items as $Item)
                                                                 <option value="{{ $Item->id }}">
                                                                     {{ $Item->ProductName }}</option>
-                                                            @endforeach
+                                                            @endforeach --}}
 
                                                         </select>
 
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    {{-- <div class="col-md-3">
                                                         <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-md-2">
                                                         <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
                                                     </div>
@@ -160,30 +160,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="row mt-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row" id="ItemArea">
 
-                                                    <div class="col-md-3">
-                                                        <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -314,7 +291,7 @@
                                                         <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
                                                             <option value="" selected>Select Item....</option>
                                                             @foreach ($Items as $Item)
-                                                                <option value="{{ $Item->id }}">
+                                                                <option id="ItemOption" value="{{ $Item->id }}">
                                                                     {{ $Item->ProductName }}</option>
                                                             @endforeach
 
@@ -438,8 +415,30 @@
                 var options = $('.ItemShowProduct').html();
                 // console.log(options);
 
-                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-3"><input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description"></div><div class="col-md-2"><input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
+                $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-2"><input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
                 // console.log(ItemArea);
+            });
+            $('.ClientItemSelect').on('change',function(){
+                // alert( $(this).find(":selected").val() );
+                // console.log($(this).find(":selected").val());
+                var ID = $(this).find(":selected").val();
+                if(ID){
+                    $.ajax({
+                    type:"GET",
+                    url:"/client/per-service/"+ID,
+                    dataType:'JSON',
+                    success:function(data)
+                    {
+                        $('.ItemShowProduct').html(data);
+
+                    }
+
+                });
+                }else{
+                    $('.ItemShowProduct').html("<option value=''>Select Item....</option>");
+                }
+
+
             });
             $('body').on('click','#RemoveItemBtn',function(e){
                 e.preventDefault();
@@ -450,10 +449,7 @@
             $('.EditBtn').on('click',function(e){
                 e.preventDefault();
                 var ID = $(this).attr('data-id');
-
-
-
-            })
+            });
             // due
             $('#SubTotal').on('keyup',function(){
                 calculate();
