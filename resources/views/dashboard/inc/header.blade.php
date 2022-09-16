@@ -50,7 +50,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        
+    <link rel="stylesheet" type="text/css" href="print.css" media="print">
+
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/print.css'); }}" media="print">
+
 
 
 

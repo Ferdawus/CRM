@@ -130,31 +130,28 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row" id="ItemArea">
-                                                    <div class="col-md-2">
-                                                        <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
-                                                            <option value="">Select Item....</option>
-                                                            {{-- @foreach ($Items as $Item)
-                                                                <option value="{{ $Item->id }}">
-                                                                    {{ $Item->ProductName }}</option>
-                                                            @endforeach --}}
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-2">
+                                                            <select  class="form-select ItemShowProduct" id="Item" name="ItemName[]">
+                                                                <option value="">Select Item....</option>
+                                                            </select>
 
-                                                        </select>
-
-                                                    </div>
-                                                    {{-- <div class="col-md-3">
-                                                        <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
-                                                    </div> --}}
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                        {{-- <div class="col-md-3">
+                                                            <input type="text" name="ItemDescription[]" class="form-control" placeholder="Item Description">
+                                                        </div> --}}
+                                                        <div class="col-md-2">
+                                                            <input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty" required>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control"placeholder='Unit Price' required>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control"placeholder='Line Total' required>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-primary" id="AddItemBtn"><i class="fa fa-plus"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,7 +191,7 @@
                                             <div class="mb-3 row">
                                                 <label class="col-sm-3 col-form-label">Sub-Total:</label>
                                                 <div class="col-sm-5">
-                                                  <input style="border-color:#CED4DA;" id="SubTotal" name="SubTotal" class="form-control" type="number">
+                                                  <input style="border-color:#CED4DA;"  id="SubTotal" name="SubTotal" class="form-control  getSubTotal" type="number">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
@@ -417,6 +414,8 @@
 
                 $('#ItemArea').append(`<div class="row mt-3"><div class="col-md-2"> <select  class="form-select" id="Item" name="ItemName[]">${options}</select></div><div class="col-md-2"><input type="number" id="Qty" name="ItemQty[]" class="form-control" placeholder="Qty"></div><div class="col-md-2"><input type="number" id="UnitPrice" name="ItemUnitPrice[]" class="form-control" placeholder="UnitPrice"></div><div class="col-md-2"><input type="number" id="LineTotal" name="ItemLineTotal[]" class="form-control" placeholder="LineTotal"></div><div class="col-md-1"><button type="button" class="btn btn-danger" id="RemoveItemBtn"><i class="fa fa-minus"></i></button></div></div>`);
                 // console.log(ItemArea);
+
+                getSubTotal()
             });
             $('.ClientItemSelect').on('change',function(){
                 // alert( $(this).find(":selected").val() );
@@ -444,6 +443,8 @@
                 e.preventDefault();
 
                 $(this).closest('.row').remove();
+
+                getSubTotal()
             });
 
             $('.EditBtn').on('click',function(e){
@@ -464,13 +465,7 @@
             $('#Total').on('keyup',function(){
                 dueCalculate();
             });
-            // line total
-            $('#Qty').on('keyup',function(){
-                LineTotal();
-            });
-            $('#UnitPrice').on('keyup',function(){
-                LineTotal();
-            });
+
 
             function calculate()
             {
@@ -494,13 +489,49 @@
                 var Due = _Total - _Amount
                 $('#Due').val(Due);
             }
-            function LineTotal()
+            // line total
+            $(document).on('keyup', '#Qty', function(){
+                var get_parent = $(this).parent().parent();
+                LineTotal(get_parent)
+            })
+
+            $(document).on('keyup', '#UnitPrice', function(){
+                var get_parent = $(this).parent().parent();
+                LineTotal(get_parent)
+            })
+            var SubTotal = 0;
+            function LineTotal(get_parent)
             {
-                var Qty       = parseInt($('#Qty').val());
-                var UnitPrice = parseInt($('#UnitPrice').val());
-                var LineTotal = Qty * UnitPrice
-                $('#LineTotal').val(LineTotal);
+                var Qty = parseInt(get_parent.find('#Qty').val())
+                var UnitPrice = parseInt(get_parent.find('#UnitPrice').val())
+                if(Qty && UnitPrice){
+                    get_parent.find('#LineTotal').val(UnitPrice * Qty);
+                    SubTotal += UnitPrice * Qty
+                }else{
+                    get_parent.find('#LineTotal').val();
+                }
+
+                getSubTotal()
+
             }
+
+            function getSubTotal(){
+                let LineTotal = 0;
+                var total_rows = $("#ItemArea > .row.mt-3").length - 1;
+                for(var i = 0; i <= total_rows; i++){
+                    if($("#ItemArea > .row.mt-3").eq(i).find('#LineTotal').val()){
+                        LineTotal += parseInt($("#ItemArea > .row.mt-3").eq(i).find('#LineTotal').val())
+                    }
+                }
+                // console.log(LineTotal);
+                $('#SubTotal').val(LineTotal)
+            }
+
+
+
+
+
+
         });
     </script>
 @endsection

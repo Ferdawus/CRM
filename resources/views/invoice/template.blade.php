@@ -2,8 +2,8 @@
 {{-- @extends('dashboard.inc.footer') --}}
 
 @section('content')
-    <div class="page-body">
-        <div class="container">
+    <div class="page-body" id="body">
+        <div class="container" id="data">
 
             <div class="row">
                 <div class="col-md-6">
@@ -14,64 +14,64 @@
                     <p class="m-0">Hotline 01841329494</p>
                     <p class="m-0">support@worldsoftzone.com</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h1 class="fs-4 text-info fw-bolder text-strat">INVOICE</h1>
-                        </div>
-                        <div class="col-md-6">
-                            <button  class="btn btn-primary text-end InvociePrint">Print</button>
-                            <a href="" class="btn btn-primary text-end mx-auto">Export Pdf</a>
-                        </div>
+                {{-- <div class="col-md-6">
+                    <h1 class="fs-4 text-info fw-bolder text-strat">INVOICE</h1>
+                    <button  onclick="printPage()"  class="btn btn-primary text-end Print" >Print</button>
 
 
-                    </div>
-                    <div class="mb-3 row  m-0">
-                        <label class="col-sm-5 col-form-label " for="inputEmail3">Date:</label>
-                        <div class="col-sm-6">
-                            <input class="form-control p-1 border-secondary" id="inputEmail3" type="email" value="{{ date('F m, Y',strtotime($dataShowInvoice->InvoiceDate)) }}">
-                        </div>
 
-                    </div>
-                    <div class="mb-3  row m-0">
-                        <label class="col-md-5 col-form-label" for="inputEmail3">Invoice #:</label>
-                        <div class="col-sm-6">
-                            <input class="form-control p-1 border-secondary" id="inputEmail3" type="email" value="{{($dataShowInvoice->InvoiceName) }}">
-                        </div>
 
-                    </div>
-                    <div class="mb-3 row m-0">
-                        <label class="col-md-5 col-form-label" for="inputEmail3">Customer ID:</label>
-                        <div class="col-sm-6">
-                            <input class="form-control p-1 border-secondary" value="{{$dataShowClient->ClientId}}" id="inputEmail3" type="email">
-                        </div>
 
-                    </div>
-                    <div class="mb-3 row m-0">
-                        <label class="col-md-5 col-form-label" for="inputEmail3">Purchase Order Date:</label>
-                        <div class="col-sm-6">
-                            <input class="form-control p-1 border-secondary" id="inputEmail3" type="email" value="{{ date('F m, Y', strtotime($dataShowInvoice->PurchaseOrderDate))  }}">
-                        </div>
-                    </div>
                     <div class="mb-3 row m-0">
                         <label class="col-md-5" for="inputEmail3">Payment Due Date:</label>
                         <div class="col-sm-6">
-                            <input class="form-control p-1 border-secondary" id="inputEmail3" type="email" value="{{  date('F m, Y', strtotime($dataShowInvoice->PaymentDueDate)) }}">
+                            <input class="form-control p-1 border-secondary" id="inputEmail3" type="email" value="{{  date('F m, Y', strtotime($Invoice->PaymentDueDate)) }}">
                         </div>
                     </div>
+                </div> --}}
+                <div class="col-md-6">
+                    <h1 class="fs-4 text-info fw-bolder text-strat">INVOICE</h1>
+                    <button  onclick="printPage()"  class="btn btn-primary text-end Print" >Print</button>
+                    <table>
+                        <tr>
+                            <td><b>Date:</b></td>
+                            <td>{{ date('F m, Y',strtotime($Invoice->InvoiceDate)) }}</td>
+                        </tr>
+                        <tr>
+                            <td> <b>Invoice #:</b></td>
+                            <td>{{($Invoice->InvoiceName) }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Customer ID:</b></td>
+                            <td>{{$Invoice->ClientId}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Purchase Order Date:</b></td>
+                            <td>{{ date('F m, Y', strtotime($Invoice->PurchaseOrderDate)) }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Payment Due Date:</b></td>
+                             <td>{{  date('F m, Y', strtotime($Invoice->PaymentDueDate)) }}</td>
+                        </tr>
+
+                    </table>
+
                 </div>
+
             </div>
 
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <h6 class="fs-6 text-info fw-bolder bg-info px-3">Bill To:</h6>
-                    <p>{{$dataShowClient->Client}}</p>
-                    <p>{{$dataShowClient->Address}}</p>
-                    <p>{{$dataShowClient->ContactNumber}}</p>
+                    <h6 class="fs-6 text-info text-info-print fw-bolder fw-bolder-print bg-info bg-info-print  px-3">Bill To:</h6>
+                    <p>{{$Invoice->Client}}</p>
+                    <p>{{$Invoice->Address}}</p>
+                    <p>{{$Invoice->ContactNumber}}</p>
                 </div>
                 <div class="col-md-6">
                     <h6 class="fs-6 text-info fw-bolder bg-info px-3">Project Summery:</h6>
-                    <p>{{$dataShowInvoiceItem->ProductName}}</p>
+                    @foreach ($InvoiceItem as $Item)
+                        <p>{{$Item->ProductName}}</p>
+                    @endforeach
                 </div>
             </div>
 
@@ -88,20 +88,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($InvoiceItem as $Item)
+                                <tr>
+                                    <td> {{$Item->ProductName}} </td>
+                                    <td> {{$Item->Description}} </td>
+                                    <td>{{$Item->Qty}}</td>
+                                    <td>{{$Item->UnitPrice}}</td>
+                                    <td>{{$Item->LineTotal}}</td>
+                                </tr>
+                            @endforeach
 
-                            <tr>
-                            <td> {{$dataShowInvoiceItem->ProductName}} </td>
-                            <td> {{$dataShowInvoiceItem->Description}} </td>
-                            <td>{{$dataShowInvoiceItem->Qty}}</td>
-                            <td>{{$dataShowInvoiceItem->UnitPrice}}</td>
-                            <td>{{$dataShowInvoiceItem->LineTotal}}</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
            </div>
 
-           <div class="row mt-2">
+           <div class="row mt-4">
                 <div class="col-md-6">
                     <table class="table table-bordered">
                         <thead>
@@ -121,31 +123,42 @@
                     </table>
                 </div>
                 <div class="col-md-6">
-                    <table class="table table-bordered">
+                    <table class="table">
 
                         <tbody>
                             <tr>
                                 <td>
-                                    Sub-Total: <span style="margin-left: 200px"> {{ $dataShowInvoice->SubTotal }}</span> <br>
-                                    <b class="py-1">Discount: <span style="margin-left: 200px">{{ $dataShowInvoice->Discount }}</span> </b> <br>
-                                    <hr class="bg-info">
-                                    <b>TOTAL: <span style="margin-left: 220px"> {{ $dataShowInvoice->Total }}</b> </span> <br>
-                                    Amount <span style="margin-left: 215px">{{ $dataShowInvoice->Amount }}</span> <br>
-                                    Due <span style="margin-left: 17.5em"> {{ $dataShowInvoice->Due }}</span>
+                                    <b>Sub-Total:</b>
+                                    <td>{{ $Invoice->SubTotal }}</td>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td><b>Discount:</b></td>
+                                <td>{{ $Invoice->Discount }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Total:</b></td>
+                                <td> {{ $Invoice->Total }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Amount:</b></td>
+                                <td>{{ $Invoice->Amount }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Due</b></td>
+                                <td>{{ $Invoice->Due }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
            </div>
 
-    </div>
-    <div class="text-center pdf-btn">
-        <a href="{{ route('pdf.generate') }}" class="btn btn-primary">Generate PDF</a>
-    </div>
+        </div>
+
 
     </div>
     <style>
+        <link>
         #success-color {
             background-color: #e3ebf2;
             padding: 8px !important;
@@ -157,21 +170,24 @@
             font-size: 18px;
 
         }
-        @media print {
-            dashboard.inc.main{
-                display:none !important;
-                visibility:hidden !important;
-        }
-    }
+
+
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            $('.InvociePrint').on('click',function(){
-                window.print();
-                return false;
-            });
-        });
+        function printPage()
+        {
+            window.print();
+        }
+        // $(document).ready(function() {
+        //     $('.InvociePrint').on('click',function(){
+        //         window.print();
+        //         return false;
+        //     });
+
+
+        // });
     </script>
 @endsection
 

@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\URL;
 
 class InvoiceController extends Controller
 {
@@ -32,9 +33,22 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        // $InvoiceItem = DB::table('invoice_items')
+        // ->leftJoin('products','invoice_items.ProductItem','products.id')
+        // ->select('invoice_items.*','products.ProductType','products.ProductName')
+        // ->where('invoice_items.InvoiceId',$id)->get();
+        // // echo "hello";
+        // // echo"<pre>";
+        // // print_r($InvoiceItem);
+
+        // $Invoice      = DB::table('invoices')
+        // ->leftjoin('clients','invoices.ClientName','clients.id')
+        // ->select('invoices.*','clients.id','clients.Client','clients.ClientId','clients.ContactNumber','clients.Country','clients.District','clients.Address')
+        // ->where('invoices.id',$id)
+        // ->first();
+        // return view('invoice.template',compact('Invoice','InvoiceItem'));
     }
 
     /**
@@ -47,8 +61,8 @@ class InvoiceController extends Controller
     {
         // return $request->request->all();
         // return $request->ItemName;
-        $Invoice = Invoice::create($request->all());
 
+        $Invoice = Invoice::create($request->all());
         $TotalItems = sizeof($request->ItemName);
         for($i = 0; $i < $TotalItems; $i++)
         {
@@ -61,8 +75,6 @@ class InvoiceController extends Controller
             $InvoiceItem->LineTotal   = $request->ItemLineTotal[$i];
 
             $InvoiceItem->save();
-
-
         }
         // dd($request->id );
         $Transaction                         = new Transaction();
@@ -74,7 +86,20 @@ class InvoiceController extends Controller
         $Transaction->AccountNumber	         = $Invoice->AccountNumber;
         $Transaction->Amount	             = $Invoice->Amount;
         $Transaction->save();
-        return redirect()->back()->with('message','Data added Successfully');
+
+        $InvoiceItem = DB::table('invoice_items')
+        ->leftJoin('products','invoice_items.ProductItem','products.id')
+        ->select('invoice_items.*','products.ProductType','products.ProductName')
+        ->where('invoice_items.InvoiceId',$Invoice->id)->get();
+
+        $Data = [
+            'Invoice'=> $Invoice,
+            'InvoiceItem' => $InvoiceItem,
+            'redirect_to' => URL::previous(),
+        ];
+        $PDF = Pdf::loadView('invoice.Pdf',$Data);
+        return $PDF->download('invoice.pdf');
+        // return redirect()->back()->with('message','Data added Successfully');
         // return view('invoice.template',compact('Invoice','InvoiceItem','Transaction'));
     }
 
@@ -128,19 +153,21 @@ class InvoiceController extends Controller
     public function template($id)
     {
 
-        $dataShowInvoice     = DB::table('invoices')->where('id',$id)->first();
-        $dataShowInvoiceItem = DB::table('invoice_items')
+        $InvoiceItem = DB::table('invoice_items')
         ->leftJoin('products','invoice_items.ProductItem','products.id')
         ->select('invoice_items.*','products.ProductType','products.ProductName')
-        ->where('invoice_items.id',$id)->first();
+        ->where('invoice_items.InvoiceId',$id)->get();
+        // echo "hello";
+        // echo"<pre>";
+        // print_r($InvoiceItem);
 
-        $dataShowClient      = DB::table('invoices')
+        $Invoice      = DB::table('invoices')
         ->leftjoin('clients','invoices.ClientName','clients.id')
         ->select('invoices.*','clients.id','clients.Client','clients.ClientId','clients.ContactNumber','clients.Country','clients.District','clients.Address')
         ->where('invoices.id',$id)
         ->first();
 
-        return view('invoice.template',compact('dataShowInvoice','dataShowInvoiceItem','dataShowClient'));
+        return view('invoice.template',compact('Invoice','InvoiceItem'));
     }
 
 
