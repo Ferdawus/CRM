@@ -22,18 +22,18 @@ class RegisteredUserController extends Controller
      */
     public function index()
     {
-        //$Users = DB::table('users')->get(); 
-        // $Roles = DB::table('roles')->get(); 
+        // return "hello";
+        $Users = DB::table('users')->get();
+        // $Roles = DB::table('roles')->get();
         $GetData = DB::table('users')
         ->join('roles','users.Role','=', 'roles.id')
         ->select('users.*','roles.Role as RoleName')
-        ->get(); 
-        //echo "<pre>";
-        //print_r($Roles);
-
+        ->get();
         $Roles = DB::table('roles')->get();
+        // echo "<pre>";
+        // print_r($Roles);
 
-        return view('user.index',compact('GetData', 'Roles'))->with('SL',1);
+        return view('user.index',compact('GetData','Users' ,'Roles'))->with('SL',1);
     }
     /**
      * Display the registration view.
@@ -66,7 +66,7 @@ class RegisteredUserController extends Controller
             'email'  => $request->email,
             'password' => Hash::make($request->password),
             'Role'    => $request->Role,
-            'Status' => $request->Status,  
+            'Status' => $request->Status,
         ]);
 
         event(new Registered($user));

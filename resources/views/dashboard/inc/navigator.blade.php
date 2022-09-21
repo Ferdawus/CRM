@@ -206,7 +206,7 @@
                                 <span>Report</span>
                             </a>
                             <ul class="nav-submenu menu-content">
-                                <li><a href="#">List</a></li>
+                                <li><a href="/report/client"> Report Client List</a></li>
                             </ul>
                         </li>
                         <!-- Users-->

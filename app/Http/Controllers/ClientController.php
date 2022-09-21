@@ -57,7 +57,7 @@ class ClientController extends Controller
     {
         $Client                     = array();
         $Client['Client']           = $request->Client;
-        $Client['ClientId']           = $request->ClientId;
+        $Client['ClientId']         = $request->ClientId;
         $Client['ContactNumber']    = $request->ContactNumber;
         $Client['AltnativeContact'] = $request->AltnativeContact;
         $Client['Country']          = $request->Country;
@@ -112,7 +112,7 @@ class ClientController extends Controller
     {
         $Client = array();
         $Client['Client']           = $request->Client;
-        $Client['ClientId']           = $request->ClientId;
+        $Client['ClientId']         = $request->ClientId;
         $Client['ContactNumber']    = $request->ContactNumber;
         $Client['AltnativeContact'] = $request->AltnativeContact;
         $Client['Country']          = $request->Country;
@@ -187,4 +187,22 @@ class ClientController extends Controller
         echo "<pre>";
         print_r($ClientInformation);
     }
+
+
+
+
+    public function getServiceByClient(Request $request, $client_id, $product_id){
+        $get_number_of_services = DB::table('services')->where('ClientId', $client_id)->where('ProductName', $product_id)->count();
+        $get_service = DB::table('services')->where('ClientId', $client_id)->where('ProductName', $product_id)->first();
+
+        $data = [
+            'number_of_service' => $get_number_of_services,
+            'software_price' => $get_service->SoftwarePrice,
+            'sla_type' => $get_service->SLAType,
+            'sla_price' => $get_service->SLAAmount,
+        ];
+        return  $data;
+
+    }
+
 }

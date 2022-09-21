@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\FuntionController;
 
 class InvoiceController extends Controller
 {
@@ -21,10 +22,22 @@ class InvoiceController extends Controller
     {
         $Clients = DB::table('clients')->get();
         $Items   = DB::table('products')->get();
+
         $Invoices = DB::table('invoices')
         ->leftJoin('clients','invoices.ClientName','=','clients.id')
-        ->select('invoices.*','clients.Client')
+        ->leftJoin('transactions','invoices.id','transactions.InvoiceId')
+
+        ->select('invoices.id', 'invoices.SubTotal', 'invoices.Discount',  'invoices.Total', 'invoices.InvoiceDate', 'invoices.InvoiceName', 'clients.Client', DB::raw('SUM(transactions.Amount) AS PaymentAmount'))
+
+        ->groupBy(['invoices.id', 'invoices.SubTotal', 'invoices.Discount',  'invoices.Total', 'invoices.InvoiceDate', 'invoices.InvoiceName', 'clients.Client'])
+
         ->get();
+
+        // echo "<pre>";
+        //      print_r($Invoices);
+
+        // exit();
+
         return view('invoice.index',compact('Clients','Items','Invoices'));
     }
 
@@ -35,20 +48,7 @@ class InvoiceController extends Controller
      */
     public function create($id)
     {
-        // $InvoiceItem = DB::table('invoice_items')
-        // ->leftJoin('products','invoice_items.ProductItem','products.id')
-        // ->select('invoice_items.*','products.ProductType','products.ProductName')
-        // ->where('invoice_items.InvoiceId',$id)->get();
-        // // echo "hello";
-        // // echo"<pre>";
-        // // print_r($InvoiceItem);
 
-        // $Invoice      = DB::table('invoices')
-        // ->leftjoin('clients','invoices.ClientName','clients.id')
-        // ->select('invoices.*','clients.id','clients.Client','clients.ClientId','clients.ContactNumber','clients.Country','clients.District','clients.Address')
-        // ->where('invoices.id',$id)
-        // ->first();
-        // return view('invoice.template',compact('Invoice','InvoiceItem'));
     }
 
     /**
@@ -73,6 +73,8 @@ class InvoiceController extends Controller
             $InvoiceItem->Qty         = $request->ItemQty[$i];
             $InvoiceItem->UnitPrice	  = $request->ItemUnitPrice[$i];
             $InvoiceItem->LineTotal   = $request->ItemLineTotal[$i];
+            $InvoiceItem->IsSetup     = $request->ItemIsSetup[$i] ? 1 : 0;
+            // dd($request->ItemIsSetup);
 
             $InvoiceItem->save();
         }
@@ -86,6 +88,11 @@ class InvoiceController extends Controller
         $Transaction->AccountNumber	         = $Invoice->AccountNumber;
         $Transaction->Amount	             = $Invoice->Amount;
         $Transaction->save();
+
+        $PaymentStatus = FuntionController::PaymentStatus($request->ClientName);
+        DB::table('clients')->where('id', $request->ClientName)->update([
+            "PaymentStatus" => $PaymentStatus,
+        ]);
 
         $InvoiceItem = DB::table('invoice_items')
         ->leftJoin('products','invoice_items.ProductItem','products.id')
@@ -111,7 +118,7 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -168,6 +175,58 @@ class InvoiceController extends Controller
         ->first();
 
         return view('invoice.template',compact('Invoice','InvoiceItem'));
+    }
+    public function paymentPopShow($id)
+    {
+        // $data = DB::table('invoices')->where('id',$id)->first();
+        $data = DB::table('invoices')
+        ->leftJoin('clients','invoices.ClientName','=','clients.id')
+        ->select('invoices.*','clients.id','clients.Client','clients.ContactNumber','clients.Address')
+        ->where('invoices.id', $id)
+        ->first();
+        return json_encode($data);
+    }
+
+    public function transactionUpdate(Request $request)
+    {
+
+        $Transaction = Transaction::create($request->all());
+        return view('invoice.recept');
+    }
+    public function getTransaction_per_invoice($id)
+    {
+        // $Client = DB::table('clients')->where('',$id)->get();
+        $Client_Invoice     = DB::table('invoices')
+        ->leftjoin('clients','invoices.ClientName','clients.id')
+        ->select('invoices.*','clients.id','clients.Client','clients.ClientId','clients.ContactNumber','clients.Country','clients.District','clients.Address')
+        ->where('invoices.id',$id)
+        ->first();
+        $getTransaction_per_invoices = DB::table('transactions')
+        ->leftJoin('invoices','transactions.InvoiceId','=','invoices.id')
+        ->select('transactions.*','invoices.id')
+        ->where('transactions.InvoiceId',$id)
+        ->paginate(5);
+        // echo "<pre>";
+        // print_r($getTransaction_per_invoices);
+        // exit();
+
+        return view('invoice.transaction',compact('getTransaction_per_invoices','Client_Invoice'));
+    }
+
+    public function receipt($id)
+    {
+        // $Transaction = DB::table('transactions')->where('id',$id)->get();
+        $Transaction = DB::table('transactions')
+        ->leftJoin('invoices','transactions.InvoiceId','=','invoices.id')
+        ->leftJoin('clients','transactions.ClientId','=','clients.id')
+        ->select('transactions.*','invoices.id','clients.Client','clients.ContactNumber','clients.Address')
+        ->where('transactions.InvoiceId',$id)
+        ->first();
+        // echo "<pre>";
+        //     print_r( $Transaction);
+        // exit();
+
+        return view('invoice.receipt',compact('Transaction'));
     }
 
 

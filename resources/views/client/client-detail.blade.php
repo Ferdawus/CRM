@@ -299,7 +299,7 @@
                     <div class="modal-body">
 
                         {{ Form::open(['url'=>'/service/client/product/update','method'=>'POST','files'=>true])}}
-                        <input type="hidden" name="id" id="ClientServiceId">
+                            <input type="hidden" name="id" id="ClientServiceId">
                             <div class="row">
                                 <div class="col-md-5">
                                     <fieldset class="p-3">
@@ -639,10 +639,7 @@
                         var myDataClient = data.ShowClient;
                         // console.log(myDataClient);
                         $('#ClientServiceId').attr('value',myData.id);
-                        // $('#Client').text(myDataClient.Client);
-                        // $('#ShowPhone').text(myDataClient.ContactNumber);
-                        // $('#ShowPhone').text(myDataClient.ContactNumber);
-                        // $('#ShowAddress').text(myDataClient.Address);
+                        
                         $('#ShowBussinessName').val(myData.BussinessName);
                         $('#ShowBussinessAddess').val(myData.BussinessName);
                         $('#ShowOtherBussinessAddess').val(myData.BussinessName);
@@ -650,7 +647,7 @@
                         $('#ShowInstallationSerge').val(myData.InstallationSerge);
                         $('#ShowSLAType').val(myData.SLAType);
                         $('#ShowSLAAmount').val(myData.SLAAmount);
-                        $('#ShowBillingType').val(myData.BillingType);
+                        // $('#ShowBillingType').val(myData.BillingType);
                         $('#ShowBillingAmount').val(myData.BillingAmount);
                         $('#ShowBillingDate').val(myData.BillingDate);
                         $('#ShowProductType').val(myData.ProductType);

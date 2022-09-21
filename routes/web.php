@@ -11,6 +11,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SLAController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UserController;
 use App\Models\Domain;
 use Egulias\EmailValidator\Parser\CommentStrategy\DomainComment;
@@ -72,6 +74,7 @@ Route::get('/client/edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client/update',[ClientController::class,'update']);
 Route::get('/client/{id}/delete', [ClientController::class, 'destroy']);
 Route::get('/client/information/{id}',[ClientController::class,'ClientInformation']);
+Route::get('/client/get-service-by-client/{client_id}/{product_id}',[ClientController::class,'getServiceByClient']);
 Route::resource('client',ClientController::class);
 
 /*
@@ -138,7 +141,11 @@ Route::get('/client/per-service/{ClientId}', [ServiceController::class,'getServi
 */
 Route::get('/invoice/{id}/delete',[InvoiceController::class,'destroy']);
 Route::get('/invoice/template/{id}',[InvoiceController::class,'template']);
+Route::get('/invoice/invoice_per_transaction/{id}',[InvoiceController::class,'getTransaction_per_invoice']);
+Route::get('/invoice/receipt/{id}',[InvoiceController::class,'receipt']);
 Route::get('/invoice/pdf/generate/', [InvoiceController::class, 'generatePDF'])->name('pdf.generate');
+Route::get('/invoice/pop_payment/show/{id}',[InvoiceController::class, 'paymentPopShow']);
+Route::post('/invoice/transaction/update',[InvoiceController::class, 'transactionUpdate']);
 Route::resource('/invoice',InvoiceController::class);
 
 /*
@@ -147,6 +154,18 @@ Route::resource('/invoice',InvoiceController::class);
 |--------------------------------------------------------------------------
 */
 Route::resource('/service',ServiceController::class);
+/*
+|--------------------------------------------------------------------------
+|All Report Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('/report/client',ReportController::class);
+/*
+|--------------------------------------------------------------------------
+|All Report Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('/sms',SMSController::class);
 
 
 require __DIR__.'/auth.php';

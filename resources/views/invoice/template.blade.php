@@ -7,12 +7,12 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="fs-3 text-info fw-bolder">WORLDSOFTZONE</h1>
-                    <p class="m-0">Parents Home, Ground Floor</p>
-                    <p class="m-0">Girls School Para, Boro Bazar</p>
-                    <p class="m-0">Meherpur Sadar, Meherpur-7100 </p>
-                    <p class="m-0">Hotline 01841329494</p>
-                    <p class="m-0">support@worldsoftzone.com</p>
+                        <h1 class="fs-3 text-info fw-bolder">WORLDSOFTZONE</h1>
+                        <p class="m-0">Parents Home, Ground Floor</p>
+                        <p class="m-0">Girls School Para, Boro Bazar</p>
+                        <p class="m-0">Meherpur Sadar, Meherpur-7100 </p>
+                        <p class="m-0">Hotline 01841329494</p>
+                        <p class="m-0">support@worldsoftzone.com</p>
                 </div>
                 {{-- <div class="col-md-6">
                     <h1 class="fs-4 text-info fw-bolder text-strat">INVOICE</h1>
@@ -70,7 +70,12 @@
                 <div class="col-md-6">
                     <h6 class="fs-6 text-info fw-bolder bg-info px-3">Project Summery:</h6>
                     @foreach ($InvoiceItem as $Item)
-                        <p>{{$Item->ProductName}}</p>
+
+
+                        <p>
+                            {{ ($Item->IsSetup) == 1 ? $Item->ProductName."(setup)" : $Item->ProductName }}
+                        </p>
+
                     @endforeach
                 </div>
             </div>
@@ -90,7 +95,7 @@
                         <tbody>
                             @foreach ($InvoiceItem as $Item)
                                 <tr>
-                                    <td> {{$Item->ProductName}} </td>
+                                    <td> {{($Item->IsSetup) == 1 ? $Item->ProductName."(setup)" : $Item->ProductName }} </td>
                                     <td> {{$Item->Description}} </td>
                                     <td>{{$Item->Qty}}</td>
                                     <td>{{$Item->UnitPrice}}</td>

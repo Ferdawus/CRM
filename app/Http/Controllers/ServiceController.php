@@ -151,19 +151,19 @@ class ServiceController extends Controller
         $Service['InstallationSerge']    = $request->InstallationSerge;
         $Service['SLAType']              = $request->SLAType;
         $Service['SLAAmount']            = $request->SLAAmount;
-        $Service['BillingType']          = $request->BillingType;
-        $Service['BillingAmount']        = $request->BillingAmount;
-        $Service['BillingDate']          = $request->BillingDate;
+        // $Service['BillingType']          = $request->BillingType;
+        // $Service['BillingAmount']        = $request->BillingAmount;
+        // $Service['BillingDate']          = $request->BillingDate;
         $Service['ProductType']          = $request->ProductType;
         $Service['ProductInstallId']     = $request->ProductInstallId;
-        $Service['ProductUrl']           = $request->ProductUrl;
-        $Service['ProductUserName']      = $request->ProductUserName;
-        $Service['ProductPassword']      = $request->ProductPassword;
+        // $Service['ProductUrl']           = $request->ProductUrl;
+        // $Service['ProductUserName']      = $request->ProductUserName;
+        // $Service['ProductPassword']      = $request->ProductPassword;
         $Service['ProductInstallDate']   = $request->ProductInstallDate;
         $Service['RefrredBy']            = $request->RefrredBy;
         $Service['HostedBy']             = $request->HostedBy;
         $Service['DomainProvide']        = $request->DomainProvide;
-        $Service['ProductRenewDate']     = $request->ProductRenewDate;
+        // $Service['ProductRenewDate']     = $request->ProductRenewDate;
         $Service['created_at']           = $request->created_at;
 
         DB::table('services')->where('id',$request->id)->update($Service);
