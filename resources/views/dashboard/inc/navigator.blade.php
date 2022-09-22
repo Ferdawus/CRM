@@ -1,8 +1,11 @@
 <div class="page-main-header">
     <div class="main-header-right row m-0">
         <div class="main-header-left">
-            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid"
-                        src="{{ asset('assets') }}/images/logo/logo.png" alt=""></a></div>
+            <div class="logo-wrapper">
+                <a href="/dashboard">
+                    <img class="img-fluid" src="/img/logo.jpg" height="40px" width="40px" alt=""><span class="fs-4 mx-3">WSZ</span>
+                </a>
+            </div>
             <div class="dark-logo-wrapper"><a href="index.html"><img class="img-fluid"
                         src="{{ asset('assets') }}/images/logo/dark-logo.png" alt=""></a></div>
             <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
@@ -145,10 +148,18 @@
         <div class="sidebar-user text-center"><a class="setting-primary" href="javascript:void(0)"><i
                     data-feather="settings"></i></a><img class="img-90 rounded-circle"
                 src="{{ asset('assets') }}/images/dashboard/1.png" alt="">
-            <div class="badge-bottom"><span class="badge badge-primary">New</span></div><a href="user-profile.html">
-                <h6 class="mt-3 f-14 f-w-600">Emay Walter</h6>
+            <div class="badge-bottom">
+                <span class="badge badge-primary">
+                    @if( Auth::user()->Status) <b class="">Active</b> @endif
+                    {{-- @php echo Auth::user()->Status;@endphp --}}
+                    @if( !Auth::user()->Status ) <b class="text-danger">Deactive</b> @endif
+
+                </span>
+            </div>
+            <a href="user-profile.html">
+                <h6 class="mt-3 f-14 f-w-600">{{ Auth::user()->name }}</h6>
             </a>
-            <p class="mb-0 font-roboto">Human Resources Department</p>
+            <p class="mb-0 font-roboto">{{ Auth::user()->Role }}</p>
             {{-- <ul>
                 <li><span><span class="counter">19.8</span>k</span>
                     <p>Follow</p>
@@ -174,8 +185,8 @@
                         <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i
                                     data-feather="home"></i><span>Dashboard</span></a>
                             <ul class="nav-submenu menu-content">
-                                <li><a href="index.html">Default</a></li>
-                                <li><a href="dashboard-02.html">Ecommerce</a></li>
+                                <li><a href="/dashboard">Home</a></li>
+
                             </ul>
                         </li>
                         <!-- Clients-->

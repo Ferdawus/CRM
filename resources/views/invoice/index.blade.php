@@ -37,7 +37,7 @@
                                 <th scope="col">Payment</th>
                                 <th scope="col">Due </th>
                                 <th scope="col">Action</th>
-                                <th scope="col">Others</th>
+
 
                             </tr>
                         </thead>
@@ -66,13 +66,15 @@
                                         <a href="/invoice/invoice_per_transaction/{{ $Invoice->id }}" style="border:0px; background:none" id="ShowBtn">
                                             <i class="fa-solid fa-receipt"></i>
                                         </a>
+                                        <button  class="border-0 Payment" data-bs-toggle="modal" data-bs-target="#PaymentPop" id="" data-id="{{ $Invoice->id }}">
+                                            <i class="icofont icofont-credit-card text-primary fs-5"></i>
+                                        </button>
                                         <a href="/invoice/{{ $Invoice->id }}/delete" class="DeleteBtn">
                                             <i class="icofont icofont-close-squared-alt ms-2 fs-5 text-danger"></i>
                                         </a>
+
                                     </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary p-1 Payment" data-bs-toggle="modal" data-bs-target="#PaymentPop" id="" data-id="{{ $Invoice->id }}">Payment</button>
-                                    </td>
+
 
                                 </tr>
                             @endforeach
@@ -185,7 +187,8 @@
                       </div>
                     </div>
                   </div>
-                {{-- insert modal --}}
+
+                  {{-- insert modal --}}
                 <div class="modal fade" id="invoice-insert" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog  modal-xl" role="document">
@@ -244,12 +247,7 @@
 
                                                         </div>
                                                         <div class="col-md-1">
-                                                            {{-- <div class="form-check">
-                                                                <input class="form-check-input" name="ItemIsSetup[]" type="checkbox" value="" id="SetupCharge">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                  SetUp
-                                                                </label>
-                                                              </div> --}}
+
                                                               <div class="form-check">
                                                                 <label class="form-check-label">
                                                                     <input class="form-check-input" name="ItemIsSetup[]" type="checkbox" id="SetupCharge"> SetUp
@@ -287,7 +285,7 @@
                                         </div>
                                     </div>
 
-
+                                   
                                     <div class="row">
                                         <div class="col-md-6">
 

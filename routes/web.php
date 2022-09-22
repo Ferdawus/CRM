@@ -142,6 +142,7 @@ Route::get('/client/per-service/{ClientId}', [ServiceController::class,'getServi
 Route::get('/invoice/{id}/delete',[InvoiceController::class,'destroy']);
 Route::get('/invoice/template/{id}',[InvoiceController::class,'template']);
 Route::get('/invoice/invoice_per_transaction/{id}',[InvoiceController::class,'getTransaction_per_invoice']);
+Route::get('/invoice/invoice_per_transaction/delete/{id}',[InvoiceController::class,'getTransaction_per_invoice_delete']);
 Route::get('/invoice/receipt/{id}',[InvoiceController::class,'receipt']);
 Route::get('/invoice/pdf/generate/', [InvoiceController::class, 'generatePDF'])->name('pdf.generate');
 Route::get('/invoice/pop_payment/show/{id}',[InvoiceController::class, 'paymentPopShow']);

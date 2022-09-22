@@ -64,6 +64,7 @@ class InvoiceController extends Controller
 
         $Invoice = Invoice::create($request->all());
         $TotalItems = sizeof($request->ItemName);
+        // dd($TotalItems);
         for($i = 0; $i < $TotalItems; $i++)
         {
             $InvoiceItem              = new InvoiceItem();
@@ -73,9 +74,8 @@ class InvoiceController extends Controller
             $InvoiceItem->Qty         = $request->ItemQty[$i];
             $InvoiceItem->UnitPrice	  = $request->ItemUnitPrice[$i];
             $InvoiceItem->LineTotal   = $request->ItemLineTotal[$i];
-            $InvoiceItem->IsSetup     = $request->ItemIsSetup[$i] ? 1 : 0;
+            $InvoiceItem->IsSetup     = isset($request->ItemIsSetup[$i]) ? 1 : 0;
             // dd($request->ItemIsSetup);
-
             $InvoiceItem->save();
         }
         // dd($request->id );
@@ -191,7 +191,7 @@ class InvoiceController extends Controller
     {
 
         $Transaction = Transaction::create($request->all());
-        return view('invoice.recept');
+        return back();
     }
     public function getTransaction_per_invoice($id)
     {
@@ -211,6 +211,13 @@ class InvoiceController extends Controller
         // exit();
 
         return view('invoice.transaction',compact('getTransaction_per_invoices','Client_Invoice'));
+    }
+    public function getTransaction_per_invoice_delete($id)
+    {
+        // return "delete";
+        $SLA = DB::table('transactions')->where('transactions.id',$id)->delete();
+        return redirect()->back()->with('message','Deleted Successfully');
+
     }
 
     public function receipt($id)

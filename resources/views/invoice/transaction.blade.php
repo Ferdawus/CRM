@@ -75,7 +75,10 @@
                             <td>{{ $value->Amount }}</td>
                             <td>
                                 <a href="/invoice/receipt/{{$value->id}}" style="border:0px; background:none" id="ShowBtn">
-                                <i class="fa-solid fa-receipt mx-4"></i>
+                                <i class="fa-solid fa-receipt mx-2 fs-5"></i>
+                                </a>
+                                <a href="/invoice/invoice_per_transaction/delete/{{$value->id}}" style="border:0px; background:none" id="ShowBtn">
+                                    <i class="icofont icofont-close-squared-alt  fs-5 text-danger"></i>
                                 </a>
                             </td>
                         </tr>
@@ -129,7 +132,7 @@
 @endsection
 
 @section('header')
-    
+
 @endsection
 @section('footer')
 @endsection

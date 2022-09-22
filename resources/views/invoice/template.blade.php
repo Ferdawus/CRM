@@ -185,14 +185,7 @@
         {
             window.print();
         }
-        // $(document).ready(function() {
-        //     $('.InvociePrint').on('click',function(){
-        //         window.print();
-        //         return false;
-        //     });
-
-
-        // });
+        
     </script>
 @endsection
 
