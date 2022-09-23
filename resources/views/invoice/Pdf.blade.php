@@ -7,11 +7,11 @@
 </head>
 <body>
 
-      <div class="container-fluid">
-
+      <div class="container">
+        <a href="" class="btn btn-primary">btn</a>
         <div class="row">
-            <div class="col-sm-6">
-                <h1 class="fs-3 text-info fw-bolder">WORLDSOFTZONE</h1>
+            <div class="col-6">
+                <h1 class="fs-5 text-info fw-bolder">WORLDSOFTZONE</h1>
                 <p class="m-0">Parents Home, Ground Floor</p>
                 <p class="m-0">Girls School Para, Boro Bazar</p>
                 <p class="m-0">Meherpur Sadar, Meherpur-7100 </p>
@@ -19,8 +19,8 @@
                 <p class="m-0">support@worldsoftzone.com</p>
             </div>
 
-            <div class="col-sm-6">
-                <h1 class="fs-4 text-info fw-bolder text-strat">INVOICE</h1>
+            <div class="col-6">
+                <h1 class="fs-5 text-info fw-bolder text-strat">INVOICE</h1>
                 <table>
                     <tr>
                         <td><b>Date:</b></td>

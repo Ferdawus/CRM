@@ -28,67 +28,72 @@
 
         <div class="print_img">
 
-            <div class="row py-4">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="print_img_wrapper">
-                        <img src="{{ asset('/img/imgpsh_fullsize_anim.jpg') }}" alt="imgpsh_fullsize_anim">
+                        <img src="{{ asset('/img/print.jpg') }}" alt="print">
                     </div>
                 </div>
             </div>
             <div class="print_body_content">
-                <div class="row py-4">
-                    <div class="col-md-4">
+                <div class="row pt-4">
+                    <div class="col-md-6">
                         <div class="mb-3 row">
-                            <label class="col-md-5 col-md-print-1 control">Rciept No:</label>
-                            <div class="col-md-7 col-md-print-1">
+                            <label class="col-md-4 col-md-print-1 control">Rciept No :</label>
+                            <div class="col-md-8 col-md-print-2">
                             <input id="" name="name" value="{{ $Transaction->TransactionId }}" type="text" placeholder="" class="form-control">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3 row">
-                            <label class="col-md-3  col-md-print-1 control" >TAKA:</label>
-                            <div class="col-md-9  col-md-print-1">
+                            <label class="col-md-3  col-md-print-5 control" >TAKA :</label>
+                            <div class="col-md-9  col-md-print-6">
                             <input id="" name="name" value="{{ $Transaction->Amount }}" type="text" placeholder="" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="mb-3 row">
-                            <label class="col-md-3  col-md-print-1 control" >Date:</label>
-                            <div class="col-md-9  col-md-print-1">
+                            <label class="col-md-2 col-md-print-3 control" >Date:</label>
+                            <div class="col-md-9 col-md-print-4">
                             <input id="" name="name" value="{{date('F m, Y', strtotime($Transaction->TransactionDate))}}" type="text" placeholder="" class="form-control border-info">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3 row">
-                            <label class="col-md-6  col-md-print-1 control" >Client Name:</label>
-                            <div class="col-md-6  col-md-print-1">
+                            <label class="col-md-4  col-md-print-2 control" >Account No :</label>
+                            <div class="col-md-8  col-md-print-1">
+                                <input id="" name="name" type="text" placeholder="" value="{{ $Transaction->AccountNumber }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="mb-3 row">
+                            <label class="col-md-4  col-md-print-2 control" >Client Name:</label>
+                            <div class="col-md-8  col-md-print-1">
                             <input id="" name="name" type="text" value="{{ $Transaction->Client }}" placeholder="" class="form-control">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3 row">
-                            <label class="col-md-4  col-md-print-1 control" >Number:</label>
-                            <div class="col-md-8  col-md-print-1">
+                            <label class="col-md-2  col-md-print-1 control" >Number:</label>
+                            <div class="col-md-10  col-md-print-2">
                             <input id="" name="name" type="text" value="{{ $Transaction->ContactNumber }}" placeholder="" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="mb-3 row">
-                            <label class="col-md-6  col-md-print-1 control" >Account No:</label>
-                            <div class="col-md-6  col-md-print-1">
-                                <input id="" name="name" type="text" placeholder="" value="{{ $Transaction->AccountNumber }}" class="form-control">
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -97,7 +102,7 @@
     {{-- <div class="my-5 col-md-12 py-4 border border-info rounded">
         <h5 class="text-center font-monospace" style="letter-spacing: 11px">WorldSoftZone.com</h5>
     </div> --}}
-</div>
+    </div>
 </div>
 
 <style>
@@ -144,15 +149,17 @@
 
     }
     input[type="text"]{
-        border-top: none !important;
+        border-top: none ;
         border-right: none !important;
         border-left: none !important;
-        border-bottom: 1px dotted #2196f3 !important;
+        border-bottom: 2px solid black !important;
         box-shadow: none !important;
         -webkit-box-shadow: none !important;
         -moz-box-shadow: none !important;
         -moz-transition: none !important;
         -webkit-transition: none !important;
+        background-color: transparent !important;
+        border-radius: 0px !important;
     }
 
     .heading{

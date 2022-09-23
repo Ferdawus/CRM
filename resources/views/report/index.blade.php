@@ -8,23 +8,29 @@
             <figure class="heading text-center">
                 <h1>Total Report</h1>
             </figure>
-            <figure class="col-md-5 mx-auto">
-                <figure>
-                    <label for="DateFrom" class="control-level">DateFrom</label>
-                    <input type="date" name="DateFrom" class="form-control">
+            {{ Form::open(['method'=>'GET','class'=>'theme-form','files'=> true]) }}
+
+                <figure class="col-md-5 mx-auto">
+                    <figure>
+                        <label for="DateFrom" class="control-level">Client Name</label>
+                        <input type="text" name="Client" value="{{ Request::get('Client') }}" class="form-control">
+                    </figure>
+                    <figure>
+                        <label class="control-level">Contact No</label>
+                        <input type="text" name="ContactNumber" value="{{ Request::get('ContactNumber') }}" class="form-control">
+                    </figure>
+                    <input type="submit" value="Search Report" class="btn btn-primary">
+                    <a href="/report/client" class="btn btn-info">Clear</a>
+
                 </figure>
-                <figure>
-                    <label for="DateTo" class="control-level">DateTo</label>
-                    <input type="date" name="DateTo" class="form-control">
-                </figure>
-                <input type="submit" name="submit" value="Search Report" class="btn btn-primary">
-            </figure>
+            {{ Form::close() }}
         </div>
       <div class="col-md-12">
         <div class="card">
             {{-- <div class="card-header">
 
             </div> --}}
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-responsive table-hover table-striped">
@@ -49,14 +55,20 @@
                                 $TotalBill = DB::table('invoices')->where('ClientName', $Client->id)->sum('Total');
                             @endphp
                           <tr>
-                            <td>{{$Sl++}}</td>
-                            <td>{{$Client->Client}}</td>
-                            <td>{{$Client->ContactNumber}}</td>
+                            <td>{{ $Sl++ }}</td>
+                            <td>{{ $Client->Client }}</td>
+                            <td>{{ $Client->ContactNumber }}</td>
                             <td> {{ number_format($TotalBill, 2) }} </td>
                             <td> {{ number_format($Client->TotalPayment, 2) }} </td>
                             <td> {{ number_format($TotalBill - $Client->TotalPayment, 2) }} </td>
-                            <td> {{$Client->PaymentStatus}} </td>
-                            <td></td>
+                            <td> {{ $Client->PaymentStatus }} </td>
+                            <td>
+                                @if ($Client->Stutus)
+                                 <a href="{{ URL("/report/client/status/{$Client->id}/0") }}"><b class="text-success ">Active</b></a>
+                                @else
+                                  <a href="{{ URL("/report/client/status/{$Client->id}/1") }}"> <b class="text-danger">Deactive</b></a>
+                                @endif
+                              </td>
                             <td class="d-flex">
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#smsModal">Send Sms</button>
                             </td>

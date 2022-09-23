@@ -160,6 +160,7 @@ Route::resource('/service',ServiceController::class);
 |All Report Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/report/client/status/{id}/{status}', [ReportController::class, 'update_status']);
 Route::resource('/report/client',ReportController::class);
 /*
 |--------------------------------------------------------------------------
