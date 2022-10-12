@@ -196,7 +196,7 @@
                                 <span>Clients</span>
                             </a>
                             <ul class="nav-submenu menu-content">
-                                {{-- <li><a href="#">Add</a></li> --}}
+                                <li><a href="/client">Add Client</a></li>
                                 <li><a href="/client">List</a></li>
                             </ul>
                         </li>

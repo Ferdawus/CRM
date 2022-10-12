@@ -23,6 +23,7 @@ class ClientController extends Controller
      */
     public function index()
     {
+        
         $Countries  = Country::all();
         $Divisions  = Division::all();
         $Districts  = District::all();
@@ -148,6 +149,7 @@ class ClientController extends Controller
      */
     public function ClientDetail(Request $request,$id)
     {
+        // return view('client.client-detail',compact('ClientDetails','SLAs','Refers','Products','Hosts','Domains','Services'));
 
         $SLAs          = DB::table('servicelevels')->get();
         $Refers        = DB::table('referreds')->get();

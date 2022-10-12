@@ -67,6 +67,7 @@ Route::resource('roles',RoleController::class);
 |--------------------------------------------------------------------------
 */
 Route::get('/client/detail/{id}',[ClientController::class,'ClientDetail']);
+
 Route::get('/client/per-service/{id}/delete',[ClientController::class,'ClientServiceDelete']);
 // --------------------------------------------------------------------------
 Route::get('/client/show/{id}', [ClientController::class, 'show']);
